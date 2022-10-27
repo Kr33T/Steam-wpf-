@@ -43,7 +43,16 @@ namespace Steam_wpf_
             List<users> user = DBHelper.sE.users.ToList();
             if(user.Where(x => x.userLogin.Equals(loginTB.Text) && x.userPassword.Equals(passwordPB.Password.GetHashCode().ToString())).Count() == 1)
             {
-                MessageBox.Show("Авторизация прошла успшено");
+                main window = new main();
+                window.Show();
+                this.Hide();
+
+                window.Closed += (obj, args) =>
+                {
+                    loginTB.Text = "";
+                    passwordPB.Password = "";
+                    this.Show();
+                };
             }
             else
             {
@@ -54,6 +63,11 @@ namespace Steam_wpf_
         private void cancelBtn_Click(object sender, RoutedEventArgs e)
         {
             Environment.Exit(1);
+        }
+
+        private void loginTB_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

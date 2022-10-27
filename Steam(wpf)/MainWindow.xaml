@@ -24,7 +24,7 @@
 
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <TextBlock VerticalAlignment="Center" Margin="40 0 20 0" Style="{StaticResource textBlocks}">Имя аккаунта</TextBlock>
-            <TextBox Name="loginTB" Height="23" Width="350" Style="{StaticResource textBoxes}"/>
+            <TextBox Name="loginTB" Height="23" Width="350" Style="{StaticResource textBoxes}" TextChanged="loginTB_TextChanged"/>
         </StackPanel>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal">
