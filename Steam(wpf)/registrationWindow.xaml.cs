@@ -59,7 +59,7 @@ namespace Steam_wpf_
                                         nickname = nicknameTB.Text,
                                         userBalance = 0,
                                         userLogin = loginTB.Text,
-                                        userPassword = passwordPB.Password.GetHashCode().ToString()
+                                        userPassword = passwordPB.Password.GetHashCode().ToString(),
                                     };
                                     DBHelper.sE.users.Add(newUser);
                                     DBHelper.sE.SaveChanges();

@@ -9,19 +9,31 @@
     <Grid Background="#2A2E33">
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="50"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0">
-            
+            <Menu Height="25" Style="{StaticResource menuStyle}">
+                <MenuItem Header="Steam" BorderBrush="#2A2E33" Background="#2A2E33" >
+                    <MenuItem Header="Войти в другой аккаунт.." Style="{StaticResource menuItemStyle}" Name="exitAccount" Click="exitAccount_Click"/>
+                    <MenuItem Header="Выход" Style="{StaticResource menuItemStyle}" Name="exitProg" Click="exitProg_Click"/>
+                </MenuItem>
+                <MenuItem Header="admin">
+                    <MenuItem Header="список пользователей" Style="{StaticResource menuItemStyle}" Name="openUserList" Click="openUserList_Click"/>
+                </MenuItem>
+            </Menu>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center">
-            <Label Style="{StaticResource frameChanger}" Content="МАГАЗИН" Name="storeL" MouseDown="Label_MouseDown" MouseEnter="Label_MouseEnter" MouseLeave="storeL_MouseLeave" />
-            <Label Style="{StaticResource frameChanger}" Content="БИБЛИОТЕКА"/>
-            <Label Style="{StaticResource frameChanger}" Content="ПРОФИЛЬ"/>
+            <Label Style="{StaticResource frameChanger}"  Content="МАГАЗИН" Name="storeL" MouseDown="storeL_MouseDown" MouseEnter="Label_MouseEnter" MouseLeave="storeL_MouseLeave" />
+            <Label Style="{StaticResource frameChanger}" Content="БИБЛИОТЕКА" Name="libraryL" MouseDown="libraryL_MouseDown"  MouseEnter="Label_MouseEnter" MouseLeave="storeL_MouseLeave" />
+            <Label Style="{StaticResource frameChanger}" Name="profileL" MouseDown="profileL_MouseDown"  MouseEnter="Label_MouseEnter" MouseLeave="storeL_MouseLeave" Content="ПРОФИЛЬ"/>
         </StackPanel>
+
+        <Frame Grid.Row="2" Name="mainFrame" NavigationUIVisibility="Hidden">
+            
+        </Frame>
         
     </Grid>
 </Window>

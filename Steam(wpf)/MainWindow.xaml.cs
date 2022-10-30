@@ -38,6 +38,8 @@ namespace Steam_wpf_
             };
         }
 
+        public static string userNickname;
+
         private void enterBtn_Click(object sender, RoutedEventArgs e)
         {
             List<users> user = DBHelper.sE.users.ToList();

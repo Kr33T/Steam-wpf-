@@ -22,26 +22,57 @@ namespace Steam_wpf_
         public main()
         {
             InitializeComponent();
+            frameClass.mainFrame = mainFrame;
         }
 
-        private void Label_MouseDown(object sender, MouseButtonEventArgs e)
+        private void storeL_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("aboba");
+            frameClass.mainFrame.Navigate(new storePage());
         }
 
         private void Label_MouseEnter(object sender, MouseEventArgs e)
         {
-            storeL.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+            mouseEnter(sender);
         }
 
         private void storeL_MouseLeave(object sender, MouseEventArgs e)
         {
-            storeL.Foreground = new SolidColorBrush(Color.FromRgb(210, 210, 210));
+            mouseOut(sender);
         }
 
-        void enter(object obj)
+        void mouseEnter(object obj)
         {
-            (Label)obj.
+            (obj as Label).Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+        }
+
+        void mouseOut(object obj)
+        {
+            (obj as Label).Foreground = new SolidColorBrush(Color.FromRgb(210, 210, 210));
+        }
+
+        private void libraryL_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            frameClass.mainFrame.Navigate(new libraryPage());
+        }
+
+        private void profileL_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("kekw");
+        }
+
+        private void exitProg_Click(object sender, RoutedEventArgs e)
+        {
+            Environment.Exit(1);
+        }
+
+        private void exitAccount_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void openUserList_Click(object sender, RoutedEventArgs e)
+        {
+            frameClass.mainFrame.Navigate(new listOfUsers());
         }
     }
 }
