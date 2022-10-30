@@ -22,7 +22,16 @@ namespace Steam_wpf_
         public main()
         {
             InitializeComponent();
+            profileL.Content = MainWindow.userNickname;
             frameClass.mainFrame = mainFrame;
+            if(MainWindow.userRole == 1)
+            {
+                adminItem.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                adminItem.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void storeL_MouseDown(object sender, MouseButtonEventArgs e)
@@ -57,7 +66,7 @@ namespace Steam_wpf_
 
         private void profileL_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("kekw");
+            frameClass.mainFrame.Navigate(new profilePage());
         }
 
         private void exitProg_Click(object sender, RoutedEventArgs e)

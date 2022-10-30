@@ -50,7 +50,7 @@
 
         <StackPanel Grid.Row="5" Orientation="Horizontal">
             <TextBlock Style="{StaticResource textBlocks}" VerticalAlignment="Center" Margin="115 0 0 0">Не можете войти?</TextBlock>
-            <Button Style="{StaticResource buttons}" Width="260" Height="25" Margin="10 0 0 0" Content="НЕ МОГУ ВОЙТИ В АККАУНТ..." HorizontalContentAlignment="Left" Padding="7 0 0 0"/>
+            <Button Style="{StaticResource buttons}" Width="260" Height="25" Margin="10 0 0 0" Content="НЕ МОГУ ВОЙТИ В АККАУНТ..." HorizontalContentAlignment="Left" Padding="7 0 0 0" Click="Button_Click"/>
         </StackPanel>
 
         <StackPanel Grid.Row="6" Orientation="Horizontal">

@@ -35,6 +35,7 @@ namespace Steam_wpf_
         public virtual DbSet<publishers> publishers { get; set; }
         public virtual DbSet<publishersForGame> publishersForGame { get; set; }
         public virtual DbSet<reviews> reviews { get; set; }
+        public virtual DbSet<roles> roles { get; set; }
         public virtual DbSet<tags> tags { get; set; }
         public virtual DbSet<tagsForGame> tagsForGame { get; set; }
         public virtual DbSet<userLibrary> userLibrary { get; set; }

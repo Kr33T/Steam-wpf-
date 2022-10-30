@@ -60,6 +60,7 @@ namespace Steam_wpf_
                                         userBalance = 0,
                                         userLogin = loginTB.Text,
                                         userPassword = passwordPB.Password.GetHashCode().ToString(),
+                                        roleId = 2
                                     };
                                     DBHelper.sE.users.Add(newUser);
                                     DBHelper.sE.SaveChanges();

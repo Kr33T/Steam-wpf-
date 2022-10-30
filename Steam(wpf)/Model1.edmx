@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище steamModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Хранилище Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="developers">
           <Key>
             <PropertyRef Name="idDeveloper" />
@@ -85,6 +85,13 @@
           <Property Name="reviewDesccription" Type="nvarchar(max)" />
           <Property Name="rating" Type="float" Nullable="false" />
         </EntityType>
+        <EntityType Name="roles">
+          <Key>
+            <PropertyRef Name="idRole" />
+          </Key>
+          <Property Name="idRole" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nameRole" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="tags">
           <Key>
             <PropertyRef Name="idTag" />
@@ -121,6 +128,7 @@
           <Property Name="userBalance" Type="float" Nullable="false" />
           <Property Name="userLogin" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="userPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="roleId" Type="int" />
         </EntityType>
         <Association Name="FK__developer__idDev__4E53A1AA">
           <End Role="developers" Type="Self.developers" Multiplicity="1" />
@@ -278,7 +286,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Хранилище steamModelContainer">
+        <Association Name="FK__users__roleId__5CA1C101">
+          <End Role="roles" Type="Self.roles" Multiplicity="0..1" />
+          <End Role="users" Type="Self.users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roles">
+              <PropertyRef Name="idRole" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="roleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ModelContainer">
           <EntitySet Name="developers" EntityType="Self.developers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="developersForGame" EntityType="Self.developersForGame" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="games" EntityType="Self.games" Schema="dbo" store:Type="Tables" />
@@ -289,6 +309,7 @@
           <EntitySet Name="publishers" EntityType="Self.publishers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="publishersForGame" EntityType="Self.publishersForGame" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="reviews" EntityType="Self.reviews" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="roles" EntityType="Self.roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tags" EntityType="Self.tags" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tagsForGame" EntityType="Self.tagsForGame" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="userLibrary" EntityType="Self.userLibrary" Schema="dbo" store:Type="Tables" />
@@ -345,12 +366,16 @@
             <End Role="users" EntitySet="users" />
             <End Role="userLibrary" EntitySet="userLibrary" />
           </AssociationSet>
+          <AssociationSet Name="FK__users__roleId__5CA1C101" Association="Self.FK__users__roleId__5CA1C101">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="steamModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="developers">
           <Key>
             <PropertyRef Name="idDeveloper" />
@@ -451,6 +476,14 @@
           <Property Name="rating" Type="Double" Nullable="false" />
           <NavigationProperty Name="games" Relationship="Self.FK__reviews__idGame__5224328E" FromRole="reviews" ToRole="games" />
         </EntityType>
+        <EntityType Name="roles">
+          <Key>
+            <PropertyRef Name="idRole" />
+          </Key>
+          <Property Name="idRole" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nameRole" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="users" Relationship="Self.FK__users__roleId__5CA1C101" FromRole="roles" ToRole="users" />
+        </EntityType>
         <EntityType Name="tags">
           <Key>
             <PropertyRef Name="idTag" />
@@ -492,6 +525,8 @@
           <Property Name="userBalance" Type="Double" Nullable="false" />
           <Property Name="userLogin" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="userPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="roleId" Type="Int32" />
+          <NavigationProperty Name="roles" Relationship="Self.FK__users__roleId__5CA1C101" FromRole="users" ToRole="roles" />
           <NavigationProperty Name="userLibrary" Relationship="Self.FK__userLibra__idUse__57DD0BE4" FromRole="users" ToRole="userLibrary" />
         </EntityType>
         <Association Name="FK__developer__idDev__4E53A1AA">
@@ -626,6 +661,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__users__roleId__5CA1C101">
+          <End Role="roles" Type="Self.roles" Multiplicity="0..1" />
+          <End Role="users" Type="Self.users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roles">
+              <PropertyRef Name="idRole" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="roleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__tagsForGa__idTag__3C34F16F">
           <End Role="tags" Type="Self.tags" Multiplicity="1" />
           <End Role="tagsForGame" Type="Self.tagsForGame" Multiplicity="*" />
@@ -661,6 +708,7 @@
           <EntitySet Name="publishers" EntityType="Self.publishers" />
           <EntitySet Name="publishersForGame" EntityType="Self.publishersForGame" />
           <EntitySet Name="reviews" EntityType="Self.reviews" />
+          <EntitySet Name="roles" EntityType="Self.roles" />
           <EntitySet Name="tags" EntityType="Self.tags" />
           <EntitySet Name="tagsForGame" EntityType="Self.tagsForGame" />
           <EntitySet Name="userLibrary" EntityType="Self.userLibrary" />
@@ -709,6 +757,10 @@
             <End Role="publishers" EntitySet="publishers" />
             <End Role="publishersForGame" EntitySet="publishersForGame" />
           </AssociationSet>
+          <AssociationSet Name="FK__users__roleId__5CA1C101" Association="Self.FK__users__roleId__5CA1C101">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
           <AssociationSet Name="FK__tagsForGa__idTag__3C34F16F" Association="Self.FK__tagsForGa__idTag__3C34F16F">
             <End Role="tags" EntitySet="tags" />
             <End Role="tagsForGame" EntitySet="tagsForGame" />
@@ -723,9 +775,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище steamModelContainer" CdmEntityContainer="steamEntities">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ModelContainer" CdmEntityContainer="steamEntities">
           <EntitySetMapping Name="developers">
-            <EntityTypeMapping TypeName="steamModel.developers">
+            <EntityTypeMapping TypeName="Model.developers">
               <MappingFragment StoreEntitySet="developers">
                 <ScalarProperty Name="idDeveloper" ColumnName="idDeveloper" />
                 <ScalarProperty Name="developerName" ColumnName="developerName" />
@@ -734,7 +786,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="developersForGame">
-            <EntityTypeMapping TypeName="steamModel.developersForGame">
+            <EntityTypeMapping TypeName="Model.developersForGame">
               <MappingFragment StoreEntitySet="developersForGame">
                 <ScalarProperty Name="idDevelopersForGame" ColumnName="idDevelopersForGame" />
                 <ScalarProperty Name="idDeveloper" ColumnName="idDeveloper" />
@@ -743,7 +795,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="games">
-            <EntityTypeMapping TypeName="steamModel.games">
+            <EntityTypeMapping TypeName="Model.games">
               <MappingFragment StoreEntitySet="games">
                 <ScalarProperty Name="idGame" ColumnName="idGame" />
                 <ScalarProperty Name="gameName" ColumnName="gameName" />
@@ -754,7 +806,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="genres">
-            <EntityTypeMapping TypeName="steamModel.genres">
+            <EntityTypeMapping TypeName="Model.genres">
               <MappingFragment StoreEntitySet="genres">
                 <ScalarProperty Name="idGenre" ColumnName="idGenre" />
                 <ScalarProperty Name="genreName" ColumnName="genreName" />
@@ -762,7 +814,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="genresForGame">
-            <EntityTypeMapping TypeName="steamModel.genresForGame">
+            <EntityTypeMapping TypeName="Model.genresForGame">
               <MappingFragment StoreEntitySet="genresForGame">
                 <ScalarProperty Name="idGenresForGame" ColumnName="idGenresForGame" />
                 <ScalarProperty Name="idGenre" ColumnName="idGenre" />
@@ -771,7 +823,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="languages">
-            <EntityTypeMapping TypeName="steamModel.languages">
+            <EntityTypeMapping TypeName="Model.languages">
               <MappingFragment StoreEntitySet="languages">
                 <ScalarProperty Name="idLanguage" ColumnName="idLanguage" />
                 <ScalarProperty Name="languageName" ColumnName="languageName" />
@@ -779,7 +831,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="languagesForGame">
-            <EntityTypeMapping TypeName="steamModel.languagesForGame">
+            <EntityTypeMapping TypeName="Model.languagesForGame">
               <MappingFragment StoreEntitySet="languagesForGame">
                 <ScalarProperty Name="idLanguagesForGame" ColumnName="idLanguagesForGame" />
                 <ScalarProperty Name="idLanguage" ColumnName="idLanguage" />
@@ -788,7 +840,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="publishers">
-            <EntityTypeMapping TypeName="steamModel.publishers">
+            <EntityTypeMapping TypeName="Model.publishers">
               <MappingFragment StoreEntitySet="publishers">
                 <ScalarProperty Name="idPublisher" ColumnName="idPublisher" />
                 <ScalarProperty Name="publisherName" ColumnName="publisherName" />
@@ -796,7 +848,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="publishersForGame">
-            <EntityTypeMapping TypeName="steamModel.publishersForGame">
+            <EntityTypeMapping TypeName="Model.publishersForGame">
               <MappingFragment StoreEntitySet="publishersForGame">
                 <ScalarProperty Name="idPublishersForGame" ColumnName="idPublishersForGame" />
                 <ScalarProperty Name="idPublisher" ColumnName="idPublisher" />
@@ -805,7 +857,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="reviews">
-            <EntityTypeMapping TypeName="steamModel.reviews">
+            <EntityTypeMapping TypeName="Model.reviews">
               <MappingFragment StoreEntitySet="reviews">
                 <ScalarProperty Name="idReview" ColumnName="idReview" />
                 <ScalarProperty Name="idGame" ColumnName="idGame" />
@@ -814,8 +866,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="roles">
+            <EntityTypeMapping TypeName="Model.roles">
+              <MappingFragment StoreEntitySet="roles">
+                <ScalarProperty Name="idRole" ColumnName="idRole" />
+                <ScalarProperty Name="nameRole" ColumnName="nameRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tags">
-            <EntityTypeMapping TypeName="steamModel.tags">
+            <EntityTypeMapping TypeName="Model.tags">
               <MappingFragment StoreEntitySet="tags">
                 <ScalarProperty Name="idTag" ColumnName="idTag" />
                 <ScalarProperty Name="tagName" ColumnName="tagName" />
@@ -823,7 +883,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tagsForGame">
-            <EntityTypeMapping TypeName="steamModel.tagsForGame">
+            <EntityTypeMapping TypeName="Model.tagsForGame">
               <MappingFragment StoreEntitySet="tagsForGame">
                 <ScalarProperty Name="idtagsForGame" ColumnName="idtagsForGame" />
                 <ScalarProperty Name="idTag" ColumnName="idTag" />
@@ -832,7 +892,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="userLibrary">
-            <EntityTypeMapping TypeName="steamModel.userLibrary">
+            <EntityTypeMapping TypeName="Model.userLibrary">
               <MappingFragment StoreEntitySet="userLibrary">
                 <ScalarProperty Name="idLibraryGame" ColumnName="idLibraryGame" />
                 <ScalarProperty Name="idUser" ColumnName="idUser" />
@@ -842,7 +902,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="users">
-            <EntityTypeMapping TypeName="steamModel.users">
+            <EntityTypeMapping TypeName="Model.users">
               <MappingFragment StoreEntitySet="users">
                 <ScalarProperty Name="idUser" ColumnName="idUser" />
                 <ScalarProperty Name="nickname" ColumnName="nickname" />
@@ -852,6 +912,7 @@
                 <ScalarProperty Name="userBalance" ColumnName="userBalance" />
                 <ScalarProperty Name="userLogin" ColumnName="userLogin" />
                 <ScalarProperty Name="userPassword" ColumnName="userPassword" />
+                <ScalarProperty Name="roleId" ColumnName="roleId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

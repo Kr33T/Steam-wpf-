@@ -19,7 +19,7 @@
                     <MenuItem Header="Войти в другой аккаунт.." Style="{StaticResource menuItemStyle}" Name="exitAccount" Click="exitAccount_Click"/>
                     <MenuItem Header="Выход" Style="{StaticResource menuItemStyle}" Name="exitProg" Click="exitProg_Click"/>
                 </MenuItem>
-                <MenuItem Header="admin">
+                <MenuItem Header="admin" Name="adminItem">
                     <MenuItem Header="список пользователей" Style="{StaticResource menuItemStyle}" Name="openUserList" Click="openUserList_Click"/>
                 </MenuItem>
             </Menu>
@@ -28,7 +28,7 @@
         <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center">
             <Label Style="{StaticResource frameChanger}"  Content="МАГАЗИН" Name="storeL" MouseDown="storeL_MouseDown" MouseEnter="Label_MouseEnter" MouseLeave="storeL_MouseLeave" />
             <Label Style="{StaticResource frameChanger}" Content="БИБЛИОТЕКА" Name="libraryL" MouseDown="libraryL_MouseDown"  MouseEnter="Label_MouseEnter" MouseLeave="storeL_MouseLeave" />
-            <Label Style="{StaticResource frameChanger}" Name="profileL" MouseDown="profileL_MouseDown"  MouseEnter="Label_MouseEnter" MouseLeave="storeL_MouseLeave" Content="ПРОФИЛЬ"/>
+            <Label Style="{StaticResource frameChanger}" Name="profileL" MouseDown="profileL_MouseDown"  MouseEnter="Label_MouseEnter" MouseLeave="storeL_MouseLeave"/>
         </StackPanel>
 
         <Frame Grid.Row="2" Name="mainFrame" NavigationUIVisibility="Hidden">

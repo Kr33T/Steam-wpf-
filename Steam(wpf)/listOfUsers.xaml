@@ -9,6 +9,47 @@
       Title="listOfUsers">
 
     <Grid>
-        <TextBlock Text="users" Foreground="White"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <GroupBox Header="search" Foreground="White">
+                <StackPanel Orientation="Horizontal">
+                    <ComboBox Name="searchByField" Width="100">
+                        <ComboBoxItem Content="nickname"/>
+                        <ComboBoxItem Content="login"/>
+                        <ComboBoxItem Content="surname"/>
+                        <ComboBoxItem Content="name"/>
+                        <ComboBoxItem Content="midname"/>
+                    </ComboBox>
+
+                    <TextBox Name="searchTB" TextChanged="searchTB_TextChanged" Style="{StaticResource textBoxes}" Width="280"/>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="sorting" Foreground="White">
+                <ComboBox Width="100" HorizontalAlignment="Left" Name="sortingBy" SelectionChanged="sortingBy_SelectionChanged">
+                    <ComboBoxItem Content="Ascending"/>
+                    <ComboBoxItem Content="Descending"/>
+                </ComboBox>
+            </GroupBox>
+            <Button Content="clear all parameters" Name="clearParams" Click="clearParams_Click" Style="{StaticResource buttons}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1">
+            <DataGrid Name="listOfUsersDg" AutoGenerateColumns="False" CanUserAddRows="False" HorizontalAlignment="Center">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="idUser" Binding="{Binding idUser}"/>
+                    <DataGridTextColumn Header="nickName" Binding="{Binding nickname}"/>
+                    <DataGridTextColumn Header="userLogin" Binding="{Binding userLogin}"/>
+                    <DataGridTextColumn Header="userBalance" Binding="{Binding userBalance}"/>
+                    <DataGridTextColumn Header="userRole" Binding="{Binding roles.nameRole}"/>
+                    <DataGridTextColumn Header="userSurname" Binding="{Binding userSurname}"/>
+                    <DataGridTextColumn Header="userName" Binding="{Binding userName}"/>
+                    <DataGridTextColumn Header="userMidname" Binding="{Binding userMidname}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
     </Grid>
 </Page>

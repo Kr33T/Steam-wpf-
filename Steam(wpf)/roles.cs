@@ -12,26 +12,18 @@ namespace Steam_wpf_
     using System;
     using System.Collections.Generic;
     
-    public partial class users
+    public partial class roles
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public users()
+        public roles()
         {
-            this.userLibrary = new HashSet<userLibrary>();
+            this.users = new HashSet<users>();
         }
     
-        public int idUser { get; set; }
-        public string nickname { get; set; }
-        public string userSurname { get; set; }
-        public string userName { get; set; }
-        public string userMidname { get; set; }
-        public double userBalance { get; set; }
-        public string userLogin { get; set; }
-        public string userPassword { get; set; }
-        public Nullable<int> roleId { get; set; }
+        public int idRole { get; set; }
+        public string nameRole { get; set; }
     
-        public virtual roles roles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<userLibrary> userLibrary { get; set; }
+        public virtual ICollection<users> users { get; set; }
     }
 }
