@@ -20,6 +20,9 @@ namespace Steam_wpf_
     /// </summary>
     public partial class MainWindow : Window
     {
+        //Данные для входа администратора:
+        //admin1232
+        //321322
         public MainWindow()
         {
             InitializeComponent();

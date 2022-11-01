@@ -26,6 +26,12 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center">
+            <Label Style="{StaticResource frameChanger}" FontSize="22" Content="➜" Name="goBackL" RenderTransformOrigin="0.5,0.5" MouseDown="goBackL_MouseDown" MouseEnter="goBackL_MouseEnter" MouseLeave="goBackL_MouseLeave">
+                <Label.RenderTransform>
+                    <ScaleTransform ScaleX="-1"/>
+                </Label.RenderTransform>
+            </Label>
+            <Label Style="{StaticResource frameChanger}" FontSize="22" Content="➜" Name="goForwardL" MouseDown="goForwardL_MouseDown" MouseEnter="goForwardL_MouseEnter" MouseLeave="goForwardL_MouseLeave"/>
             <Label Style="{StaticResource frameChanger}"  Content="МАГАЗИН" Name="storeL" MouseDown="storeL_MouseDown" MouseEnter="Label_MouseEnter" MouseLeave="storeL_MouseLeave" />
             <Label Style="{StaticResource frameChanger}" Content="БИБЛИОТЕКА" Name="libraryL" MouseDown="libraryL_MouseDown"  MouseEnter="Label_MouseEnter" MouseLeave="storeL_MouseLeave" />
             <Label Style="{StaticResource frameChanger}" Name="profileL" MouseDown="profileL_MouseDown"  MouseEnter="Label_MouseEnter" MouseLeave="storeL_MouseLeave"/>

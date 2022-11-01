@@ -83,5 +83,37 @@ namespace Steam_wpf_
         {
             frameClass.mainFrame.Navigate(new listOfUsers());
         }
+
+        private void goBackL_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (frameClass.mainFrame.CanGoBack)
+                frameClass.mainFrame.GoBack();
+        }
+
+        private void goForwardL_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (frameClass.mainFrame.CanGoForward)
+                frameClass.mainFrame.GoForward();
+        }
+
+        private void goBackL_MouseEnter(object sender, MouseEventArgs e)
+        {
+            mouseEnter(sender);
+        }
+
+        private void goForwardL_MouseEnter(object sender, MouseEventArgs e)
+        {
+            mouseEnter(sender);
+        }
+
+        private void goBackL_MouseLeave(object sender, MouseEventArgs e)
+        {
+            mouseOut(sender);
+        }
+
+        private void goForwardL_MouseLeave(object sender, MouseEventArgs e)
+        {
+            mouseOut(sender);
+        }
     }
 }
