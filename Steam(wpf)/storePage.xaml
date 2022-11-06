@@ -14,7 +14,7 @@
             <ColumnDefinition Width="75*"/>
         </Grid.ColumnDefinitions>
 
-        <ListView Name="genresList" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        <ListView Name="genresList" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  Background="Transparent" BorderBrush="Transparent">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel HorizontalAlignment="Center"></WrapPanel>
@@ -24,7 +24,7 @@
                 <DataTemplate>
                     <Grid Width="190" HorizontalAlignment="Center" Height="20">
                         <StackPanel>
-                            <TextBlock Text="{Binding genreName}" FontSize="14"/>
+                            <TextBlock Text="{Binding genreName}" FontSize="14" Foreground="#D2D2D2"/>
                         </StackPanel>
                     </Grid>
                 </DataTemplate>

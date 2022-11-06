@@ -80,7 +80,18 @@ namespace Steam_wpf_
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
+            userRole = 1;
+            userNickname = "admin";
+            main window = new main();
+            window.Show();
+            this.Hide();
+
+            window.Closed += (obj, args) =>
+            {
+                loginTB.Text = "";
+                passwordPB.Password = "";
+                this.Show();
+            };
         }
     }
 }

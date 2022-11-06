@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Steam_wpf_"
         mc:Ignorable="d"
         Title="main" Height="800" Width="1200">
+    
     <Grid Background="#2A2E33">
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
@@ -20,7 +21,8 @@
                     <MenuItem Header="Выход" Style="{StaticResource menuItemStyle}" Name="exitProg" Click="exitProg_Click"/>
                 </MenuItem>
                 <MenuItem Header="admin" Name="adminItem">
-                    <MenuItem Header="список пользователей" Style="{StaticResource menuItemStyle}" Name="openUserList" Click="openUserList_Click"/>
+                    <MenuItem Header="Список пользователей" Style="{StaticResource menuItemStyle}" Name="openUserList" Click="openUserList_Click"/>
+                    <MenuItem Header="Список игр" Style="{StaticResource menuItemStyle}" Name="openGameList" Click="openGameList_Click"/>
                 </MenuItem>
             </Menu>
         </StackPanel>
@@ -37,7 +39,7 @@
             <Label Style="{StaticResource frameChanger}" Name="profileL" MouseDown="profileL_MouseDown"  MouseEnter="Label_MouseEnter" MouseLeave="storeL_MouseLeave"/>
         </StackPanel>
 
-        <Frame Grid.Row="2" Name="mainFrame" NavigationUIVisibility="Hidden">
+        <Frame Grid.Row="2" Name="mainFrame" NavigationUIVisibility="Hidden" Margin="15">
             
         </Frame>
         
