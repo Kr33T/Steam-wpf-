@@ -23,7 +23,7 @@ namespace Steam_wpf_
         public storePage()
         {
             InitializeComponent();
-            genresList.ItemsSource = DBHelper.sE.genres.ToList();
+            gamesLV.ItemsSource = DBHelper.sE.games.ToList();
         }
     }
 }

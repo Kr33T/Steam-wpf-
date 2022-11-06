@@ -9,24 +9,31 @@
       Title="storePage">
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="25*"/>
-            <ColumnDefinition Width="75*"/>
-        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
 
-        <ListView Name="genresList" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  Background="Transparent" BorderBrush="Transparent">
+        <StackPanel Grid.Row="0" VerticalAlignment="Center">
+            <TextBlock Text="Поиск" Style="{StaticResource textBlocks}" Margin="10 0 0 0"/>
+            <TextBox Name="searchTB" Style="{StaticResource textBoxes}" Margin="10 0 10 0"/>
+        </StackPanel>
+
+        <ListView Name="gamesLV" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="2" HorizontalAlignment="Stretch" Width="auto">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel HorizontalAlignment="Center"></WrapPanel>
+                    <StackPanel HorizontalAlignment="Center" Orientation="Vertical"/>
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Width="190" HorizontalAlignment="Center" Height="20">
-                        <StackPanel>
-                            <TextBlock Text="{Binding genreName}" FontSize="14" Foreground="#D2D2D2"/>
-                        </StackPanel>
-                    </Grid>
+                    <StackPanel Height="50" Orientation="Horizontal" Background="#16202D" HorizontalAlignment="Stretch" Width="auto">
+                        <Image Width="80"/>
+                        <TextBlock Text="{Binding gameName}" Style="{StaticResource textBlocks}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <TextBlock Text="{Binding releaseDate, ConverterCulture=ru, StringFormat={}dd MMM. yyyy}" HorizontalAlignment="Right" Style="{StaticResource textBlocks}" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding gamePrice}" VerticalAlignment="Center" HorizontalAlignment="Right" Style="{StaticResource textBlocks}"/>
+                    </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
