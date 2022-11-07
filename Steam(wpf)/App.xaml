@@ -81,10 +81,16 @@
         </Style>
 
         <Style x:Key="textBoxAdminWindow" TargetType="TextBox">
-            <Setter Property="Background" Value="#2A2E33"/>
-            <Setter Property="BorderBrush" Value="#4B5466"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Foreground" Value="#D2D2D2"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="listViewItemsAdminPageGames" TargetType="TextBlock">
+            <Setter Property="Padding" Value="5 0 5 0"/>
+            <Setter Property="Background" Value="#2D4556"/>
+            <Setter Property="Foreground" Value="#54C1F5"/>
         </Style>
     </Application.Resources>
 </Application>

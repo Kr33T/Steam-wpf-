@@ -8,13 +8,13 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="listOfGamesUpdated">
 
-    <Grid>
+    <Grid Background="#1B2838">
         <Grid.RowDefinitions>
             <RowDefinition Height="7*"/>
             <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
 
-        <ListView Grid.Row="0" Name="gamesLV" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="gamesLV_SelectionChanged" Background="Transparent" BorderThickness="0">
+        <ListView Margin="0 20 0 0" Grid.Row="0" Name="gamesLV" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="gamesLV_SelectionChanged" Background="Transparent" BorderThickness="0">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel HorizontalAlignment="Center"/>
@@ -23,24 +23,94 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border>
-                        <Grid Width="300" Height="auto" Background="#16202D">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                            </Grid.RowDefinitions>
+                        <Grid Background="#16202D">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="7*"/>
+                            </Grid.ColumnDefinitions>
 
-                            <TextBlock Grid.Row="0" FontSize="24" Text="{Binding gameName}" Style="{StaticResource textBlockForListGameName}"/>
-                            <TextBlock Grid.Row="1" Text="{Binding releaseDate, ConverterCulture=ru, StringFormat={}dd MMMM yyyy}" Style="{StaticResource textBlockForListGameDate}"/>
-                            <TextBlock Grid.Row="2" Uid="{Binding idGame}" Name="genreForGameTB" Loaded="genreForGameTB_Loaded" Foreground="#67C1F5"/>
-                            <TextBlock Grid.Row="3" Uid="{Binding idGame}" Name="languagesForGameTB" Loaded="languagesForGameTB_Loaded" Foreground="#67C1F5"/>
-                            <TextBlock Grid.Row="4" Uid="{Binding idGame}" Name="tagsForGameTB" Loaded="tagsForGameTB_Loaded" Foreground="#67C1F5"/>
-                            <TextBlock Grid.Row="5" Uid="{Binding idGame}" Name="ratingForGameTB" Loaded="ratingForGameTB_Loaded" Foreground="#67C1F5" TextWrapping="Wrap"/>
-                            <TextBlock Grid.Row="6" Text="{Binding gamePrice}" Style="{StaticResource textBlockForListGamePrice}" HorizontalAlignment="Right"/>
+                            <Image Grid.Column="0" Width="250" Height="100"/>
+
+                            <Grid Grid.Column="1" Width="700" Height="auto">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Row="0" FontSize="24" Text="{Binding gameName}" Style="{StaticResource textBlockForListGameName}"/>
+                                <TextBlock Grid.Row="1" Text="{Binding releaseDate, ConverterCulture=ru, StringFormat={}dd MMMM yyyy}" Style="{StaticResource textBlockForListGameDate}"/>
+
+                                <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                    <TextBlock Foreground="#67C1F5" Text="жанры: " VerticalAlignment="Center"/>
+                                    <ListView Background="Transparent" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Uid="{Binding idGame}" Name="genresLV" Loaded="genresLV_Loaded">
+                                        <ListBox.ItemContainerStyle>
+                                            <Style TargetType="ListBoxItem">
+                                                <Setter Property="Focusable" Value="False" />
+                                            </Style>
+                                        </ListBox.ItemContainerStyle>
+                                        <ListView.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel Orientation="Horizontal"/>
+                                            </ItemsPanelTemplate>
+                                        </ListView.ItemsPanel>
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding genres.genreName}" Style="{StaticResource listViewItemsAdminPageGames}"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
+                                
+                                <StackPanel Grid.Row="3" Orientation="Horizontal">
+                                    <TextBlock Foreground="#67C1F5" Text="языки: " VerticalAlignment="Center"/>
+                                    <ListView Background="Transparent" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Uid="{Binding idGame}" Name="languagesLV" Loaded="languagesLV_Loaded">
+                                        <ListBox.ItemContainerStyle>
+                                            <Style TargetType="ListBoxItem">
+                                                <Setter Property="Focusable" Value="False" />
+                                            </Style>
+                                        </ListBox.ItemContainerStyle>
+                                        <ListView.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel Orientation="Horizontal"/>
+                                            </ItemsPanelTemplate>
+                                        </ListView.ItemsPanel>
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding languages.languageName}" Style="{StaticResource listViewItemsAdminPageGames}"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
+                                
+                                <StackPanel Grid.Row="4" Orientation="Horizontal">
+                                    <TextBlock Foreground="#67C1F5" Text="метки: " VerticalAlignment="Center"/>
+                                    <ListView Background="Transparent" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Uid="{Binding idGame}" Name="tagsLV" Loaded="tagsLV_Loaded">
+                                        <ListBox.ItemContainerStyle>
+                                            <Style TargetType="ListBoxItem">
+                                                <Setter Property="Focusable" Value="False" />
+                                            </Style>
+                                        </ListBox.ItemContainerStyle>
+                                        <ListView.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel Orientation="Horizontal"/>
+                                            </ItemsPanelTemplate>
+                                        </ListView.ItemsPanel>
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding tags.tagName}" Style="{StaticResource listViewItemsAdminPageGames}"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
+                                <TextBlock Grid.Row="5" Uid="{Binding idGame}" Name="ratingForGameTB" Loaded="ratingForGameTB_Loaded" Foreground="#67C1F5" TextWrapping="Wrap"/>
+                                <TextBlock Grid.Row="6" Text="{Binding gamePriceUpd}" Style="{StaticResource textBlockForListGamePrice}" HorizontalAlignment="Right"/>
+                            </Grid>
+
                         </Grid>
                     </Border>
                 </DataTemplate>
@@ -54,22 +124,59 @@
                 <ColumnDefinition Width="3.3*"/>
             </Grid.ColumnDefinitions>
 
-            <DataGrid Grid.Column="0" Name="listOfPublishersDG" AutoGenerateColumns="False" CanUserAddRows="False" HorizontalAlignment="Center">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="idPublisher" Binding="{Binding idPublisher}"/>
-                    <DataGridTextColumn Header="publisherName" Binding="{Binding publishers.publisherName}"/>
-                </DataGrid.Columns>
-            </DataGrid>
+            <StackPanel Grid.Column="0">
+                <TextBlock Text="Издатели:" Foreground="#C7CCC9"/>
+                <ListView Name="publishersLV" Background="Transparent" BorderThickness="0">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Focusable" Value="False" />
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding publishers.publisherName}" Style="{StaticResource listViewItemsAdminPageGames}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
 
-            <DataGrid Grid.Column="1" Name="listOfDevelopersDG" AutoGenerateColumns="False" CanUserAddRows="False" HorizontalAlignment="Center">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="idDeveloper" Binding="{Binding idDeveloper}"/>
-                    <DataGridTextColumn Header="developerName" Binding="{Binding developers.developerName}"/>
-                </DataGrid.Columns>
-            </DataGrid>
+            <StackPanel Grid.Column="1">
+                <TextBlock Text="Разработчики:" Foreground="#C7CCC9"/>
+                <ListView Name="developersLV" Background="Transparent" BorderThickness="0">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Focusable" Value="False" />
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding developers.developerName}" Style="{StaticResource listViewItemsAdminPageGames}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
 
-            <TextBox Grid.Column="2" Width="auto" IsReadOnly="True" Name="gameDescriptionTB" TextWrapping="Wrap" Style="{StaticResource textBoxAdminWindow}"/>
-            
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="8*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="Описание:" Foreground="#C7CCC9"/>
+
+                <TextBox Grid.Row="1" Margin="5 10 0 0" Width="auto" IsReadOnly="True" Name="gameDescriptionTB" TextWrapping="Wrap" Style="{StaticResource textBoxAdminWindow}"/>
+            </Grid>
+
         </Grid>
         
     </Grid>
