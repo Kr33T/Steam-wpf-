@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Steam_wpf_"
         mc:Ignorable="d"
-        Title="main" Height="800" Width="1200">
+        Title="main" Height="800" Width="1200" ResizeMode="NoResize">
     
     <Grid Background="#2A2E33">
         <Grid.RowDefinitions>
@@ -39,7 +39,7 @@
             <Label Style="{StaticResource frameChanger}" Name="profileL" MouseDown="profileL_MouseDown"  MouseEnter="Label_MouseEnter" MouseLeave="storeL_MouseLeave"/>
         </StackPanel>
 
-        <Frame Grid.Row="2" Name="mainFrame" NavigationUIVisibility="Hidden" Margin="15">
+        <Frame Grid.Row="2" Name="mainFrame" NavigationUIVisibility="Hidden" Margin="5">
             
         </Frame>
         

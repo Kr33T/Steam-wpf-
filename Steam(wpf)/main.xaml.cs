@@ -118,7 +118,7 @@ namespace Steam_wpf_
 
         private void openGameList_Click(object sender, RoutedEventArgs e)
         {
-            frameClass.mainFrame.Navigate(new listOfGames());
+            frameClass.mainFrame.Navigate(new listOfGamesUpdated());
         }
     }
 }

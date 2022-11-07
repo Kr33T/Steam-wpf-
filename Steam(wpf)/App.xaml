@@ -51,5 +51,40 @@
             <Setter Property="Foreground" Value="#D2D2D2"/>
             <Setter Property="BorderBrush" Value="#2A2E33"/>
         </Style>
+
+        <Style x:Key="storeTextBoxes" TargetType="TextBox">
+            <Setter Property="Background" Value="#223A4C"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="storeButtons" TargetType="Button">
+            <Setter Property="Background" Value="#223A4C"/>
+            <Setter Property="Foreground" Value="#5CB6C9"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Height" Value="25"/>
+        </Style>
+
+        <Style x:Key="textBlockForListGameName" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#C7CCC9"/>
+        </Style>
+
+        <Style x:Key="textBlockForListGameDate" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#4C6C8C"/>
+        </Style>
+
+        <Style x:Key="textBlockForListGamePrice" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#888888"/>
+        </Style>
+
+        <Style x:Key="textBoxAdminWindow" TargetType="TextBox">
+            <Setter Property="Background" Value="#2A2E33"/>
+            <Setter Property="BorderBrush" Value="#4B5466"/>
+            <Setter Property="Foreground" Value="#D2D2D2"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
     </Application.Resources>
 </Application>

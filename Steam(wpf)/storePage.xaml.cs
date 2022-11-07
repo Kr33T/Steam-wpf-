@@ -24,6 +24,40 @@ namespace Steam_wpf_
         {
             InitializeComponent();
             gamesLV.ItemsSource = DBHelper.sE.games.ToList();
+            gamesLV.SelectedValuePath = "idGame";
+
+            listOfLanguages.ItemsSource = DBHelper.sE.languages.ToList();
+            listOfLanguages.SelectedValuePath = "idLanguage";
+            listOfLanguages.DisplayMemberPath = "languageName";
+
+            listOfTags.ItemsSource = DBHelper.sE.tags.ToList();
+            listOfTags.SelectedValuePath = "idTag";
+            listOfTags.DisplayMemberPath = "tagName";
+
+            listOfGenres.ItemsSource = DBHelper.sE.genres.ToList();
+            listOfGenres.SelectedValuePath = "idGenre";
+            listOfGenres.DisplayMemberPath = "genreName";
+        }
+
+        private void tags_Loaded(object sender, RoutedEventArgs e)
+        {
+            int index = Convert.ToInt32((sender as TextBlock).Uid);
+
+            List<tagsForGame> tagsList = DBHelper.sE.tagsForGame.Where(x => x.idGame == index).ToList();
+
+            
+        }
+
+        private void gameNameTB_Loaded(object sender, RoutedEventArgs e)
+        {
+            int index = Convert.ToInt32((sender as TextBlock).Uid);
+
+            List<tagsForGame> tagsList = DBHelper.sE.tagsForGame.Where(x => x.idGame == index).ToList();
+        }
+
+        private void tags4Game_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -93,6 +93,9 @@
     <Compile Include="listOfGames.xaml.cs">
       <DependentUpon>listOfGames.xaml</DependentUpon>
     </Compile>
+    <Compile Include="listOfGamesUpdated.xaml.cs">
+      <DependentUpon>listOfGamesUpdated.xaml</DependentUpon>
+    </Compile>
     <Compile Include="listOfUsers.xaml.cs">
       <DependentUpon>listOfUsers.xaml</DependentUpon>
     </Compile>
@@ -152,6 +155,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="listOfGames.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="listOfGamesUpdated.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
