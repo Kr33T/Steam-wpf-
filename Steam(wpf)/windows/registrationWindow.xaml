@@ -1,0 +1,49 @@
+﻿<Window x:Class="Steam_wpf_.registrationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Steam_wpf_"
+        mc:Ignorable="d"
+        Title="Создание аккаунта Steam" Height="470" Width="400" Background="#2A2E33">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="120"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" VerticalAlignment="Center">
+            <StackPanel>
+                <TextBlock Style="{StaticResource textBlocks}" Margin="30 0 0 0">Задайте имя аккаунта, пароль и никнейм.</TextBlock>
+                <TextBlock Style="{StaticResource textBlocks}" Margin="30 0 0 0">Придумайте такой пароль, который будет сложно подобрать.</TextBlock>
+                <TextBlock Style="{StaticResource textBlocks}" Margin="30 0 0 0">Он должен состоять не менее, чем из 8 символов.</TextBlock>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1">
+            <TextBlock Style="{StaticResource textBlocks}" Margin="30 0 0 5">Имя аккаунта (логин)</TextBlock>
+            <TextBox Style="{StaticResource textBoxes}" Name="loginTB" Width="280" HorizontalAlignment="Left" Margin="30 0 0 0"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2">
+            <TextBlock Style="{StaticResource textBlocks}" Margin="30 0 0 5">Никнейм</TextBlock>
+            <TextBox Style="{StaticResource textBoxes}" Name="nicknameTB" Width="280" HorizontalAlignment="Left" Margin="30 0 0 0"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3">
+            <TextBlock Style="{StaticResource textBlocks}" Margin="30 0 0 5">Пароль</TextBlock>
+            <PasswordBox Style="{StaticResource pswrdBoxes}" Name="passwordPB" Width="280" HorizontalAlignment="Left" Margin="30 0 0 0"/>
+
+            <TextBlock Style="{StaticResource textBlocks}" Margin="30 10 0 5">Введите пароль снова</TextBlock>
+            <PasswordBox Style="{StaticResource pswrdBoxes}" Name="repeatPB" Width="280" HorizontalAlignment="Left" Margin="30 0 0 0"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Style="{StaticResource buttons}" Name="regBtn" Click="regBtn_Click" Content="ГОТОВО" Width="80"/>
+            <Button Style="{StaticResource buttons}" Name="cancelBtn" Content="ОТМЕНА" Width="80" Margin="13 0 10 0" Click="cancelBtn_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

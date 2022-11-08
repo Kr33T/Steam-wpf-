@@ -64,14 +64,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DBHelper.cs" />
+    <Compile Include="class\DBHelper.cs" />
     <Compile Include="developers.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="developersForGame.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="frameClass.cs" />
+    <Compile Include="class\frameClass.cs" />
     <Compile Include="games.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -87,16 +87,16 @@
     <Compile Include="languagesForGame.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="libraryPage.xaml.cs">
+    <Compile Include="page\libraryPage.xaml.cs">
       <DependentUpon>libraryPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="listOfGamesUpdated.xaml.cs">
+    <Compile Include="page\listOfGamesUpdated.xaml.cs">
       <DependentUpon>listOfGamesUpdated.xaml</DependentUpon>
     </Compile>
-    <Compile Include="listOfUsers.xaml.cs">
+    <Compile Include="page\listOfUsers.xaml.cs">
       <DependentUpon>listOfUsers.xaml</DependentUpon>
     </Compile>
-    <Compile Include="main.xaml.cs">
+    <Compile Include="widnow\main.xaml.cs">
       <DependentUpon>main.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model1.Context.cs">
@@ -114,8 +114,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
-    <Compile Include="partialClass.cs" />
-    <Compile Include="profilePage.xaml.cs">
+    <Compile Include="class\partialClass.cs" />
+    <Compile Include="page\profilePage.xaml.cs">
       <DependentUpon>profilePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="publishers.cs">
@@ -124,7 +124,7 @@
     <Compile Include="publishersForGame.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="registrationWindow.xaml.cs">
+    <Compile Include="widnow\registrationWindow.xaml.cs">
       <DependentUpon>registrationWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="reviews.cs">
@@ -133,7 +133,7 @@
     <Compile Include="roles.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="storePage.xaml.cs">
+    <Compile Include="page\storePage.xaml.cs">
       <DependentUpon>storePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="tags.cs">
@@ -148,19 +148,19 @@
     <Compile Include="users.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Page Include="libraryPage.xaml">
+    <Page Include="page\libraryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="listOfGamesUpdated.xaml">
+    <Page Include="page\listOfGamesUpdated.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="listOfUsers.xaml">
+    <Page Include="page\listOfUsers.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="main.xaml">
+    <Page Include="widnow\main.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -176,15 +176,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="profilePage.xaml">
+    <Page Include="page\profilePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="registrationWindow.xaml">
+    <Page Include="widnow\registrationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="storePage.xaml">
+    <Page Include="page\storePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

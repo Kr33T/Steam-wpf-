@@ -1,0 +1,107 @@
+﻿<Page x:Class="Steam_wpf_.storePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Steam_wpf_"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="storePage">
+
+    <Grid Background="#1B2838">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="9*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Background="#101822" Margin="8">
+                <TextBox Style="{StaticResource storeTextBoxes}" Width="250" Margin="10 0 10 0"/>
+                <Button Style="{StaticResource storeButtons}" Content="Поиск" Width="60"/>
+            </StackPanel>
+
+            <ListView Name="gamesLV" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="1" Background="Transparent" BorderBrush="Transparent">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel HorizontalAlignment="Stretch" Width="auto" Orientation="Vertical" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Height="50" HorizontalAlignment="Stretch" Background="#16202D" Width="807 ">
+
+                            <Image Width="80" Grid.Column="0"/>
+                            <TextBlock Text="{Binding gameName}" Style="{StaticResource textBlockForListGameName}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                            <ListView Name="tags4Game" Uid="{Binding idGame}" Loaded="tags4Game_Loaded">
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding tags.tagName}"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                            <TextBlock Text="{Binding releaseDate, ConverterCulture=ru, StringFormat={}dd MMM. yyyy}" HorizontalAlignment="Right" Style="{StaticResource textBlockForListGameDate}" VerticalAlignment="Center"/>
+                            <TextBlock Text="{Binding gamePrice}" VerticalAlignment="Center" HorizontalAlignment="Right" Style="{StaticResource textBlockForListGamePrice}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2.5*"/>
+                <RowDefinition Height="2.5*"/>
+                <RowDefinition Height="2.5*"/>
+                <RowDefinition Height="2.5*"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Content="Сортировка по цене" Foreground="#4C6C8C"/>
+
+            <Grid Grid.Row="1" Background="#343E4C" Margin="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="8*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="Язык" Foreground="#C7CCC9"/>
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="1 -1 1 1" CanContentScroll="True">
+                    <ListBox Name="listOfLanguages" SelectionMode="Multiple" Background="#1B2838" Foreground="#9FBBCB" BorderThickness="0"/>
+                </ScrollViewer>
+            </Grid>
+
+            <Grid Grid.Row="2" Background="#343E4C" Margin="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="8*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="Метки" Foreground="#C7CCC9"/>
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="1 -1 1 1" CanContentScroll="True">
+                    <ListBox Name="listOfTags" SelectionMode="Multiple" Background="#1B2838" Foreground="#9FBBCB" BorderThickness="0"/>
+                </ScrollViewer>
+            </Grid>
+
+            <Grid Grid.Row="3" Background="#343E4C" Margin="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="8*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="Жанры" Foreground="#C7CCC9"/>
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="1 -1 1 1" CanContentScroll="True">
+                    <ListBox Name="listOfGenres" SelectionMode="Multiple" Background="#1B2838" Foreground="#9FBBCB" BorderThickness="0"/>
+                </ScrollViewer>
+            </Grid>
+
+        </Grid>
+        
+    </Grid>
+</Page>
