@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Steam_wpf_
 {
@@ -16,6 +18,14 @@ namespace Steam_wpf_
             }
         }
 
+        public string gamePriceWithDiscount
+        {
+            get
+            {
+                return $"Скидка: {priceWithDiscount} руб.";
+            }
+        }
+
         public string releaseDateUpd
         {
             get
@@ -23,5 +33,21 @@ namespace Steam_wpf_
                 return releaseDate.ToString("dd MMM. yyyy");
             }
         }
+
+        public SolidColorBrush discount
+        {
+            get
+            {
+                if (isDiscounted)
+                {
+                    return new SolidColorBrush(Color.FromRgb(185, 235, 22));
+                }
+                else
+                {
+                    return new SolidColorBrush(Color.FromRgb(136, 136, 136));
+                }
+            }
+        }
+
     }
 }

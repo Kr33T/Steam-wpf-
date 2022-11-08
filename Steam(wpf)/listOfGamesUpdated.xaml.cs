@@ -43,9 +43,29 @@ namespace Steam_wpf_
 
             List<reviews> reviews = DBHelper.sE.reviews.Where(x => x.idGame == index).ToList();
 
-            int posReviewsK = reviews.Where(x => x.rating == true);
+            int result = 0;
 
-            
+            if (reviews.Count() != 0)
+            {
+                int totalReviews = reviews.Count();
+                int posReviewsK = reviews.Where(x => x.rating == true).Count();
+
+                result = (int)(Math.Round(Convert.ToDouble(posReviewsK) / Convert.ToDouble(totalReviews), 2) * 100);
+
+                (sender as TextBlock).Text = $"{result}% из {totalReviews} обзоров положительные";
+
+                if (0 <= result && result <= 33)
+                    (sender as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(163, 76, 37));
+                else if (34 <= result && result <= 66)
+                    (sender as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(185, 160, 116));
+                else if (67 <= result && result <= 100)
+                    (sender as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(102, 192, 244));
+            }
+            else
+            {
+                (sender as TextBlock).Text = $"Обзоров нет";
+                (sender as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(163, 76, 37));
+            }
         }
 
         private void gamesLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -85,6 +105,26 @@ namespace Steam_wpf_
             List<genresForGame> genresList = DBHelper.sE.genresForGame.Where(x => x.idGame == index).ToList();
 
             (sender as ListView).ItemsSource = genresList;
+        }
+
+        private void priceTB_Loaded(object sender, RoutedEventArgs e)
+        {
+            int index = Convert.ToInt32((sender as TextBlock).Uid);
+
+            games game = DBHelper.sE.games.FirstOrDefault(x=>x.idGame == index);
+
+            Binding bind = new Binding();
+
+            if (game.isDiscounted)
+            {
+                bind.Path = new PropertyPath("gamePriceWithDiscount");
+                (sender as TextBlock).SetBinding(TextBlock.TextProperty, bind);
+            }
+            else
+            {
+                bind.Path = new PropertyPath("gamePriceUpd");
+                (sender as TextBlock).SetBinding(TextBlock.TextProperty, bind);
+            }
         }
     }
 }

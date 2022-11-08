@@ -5,35 +5,35 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="fe133ce7eb074004bb0d3e8a0ad29fab" Name="Diagram1">
-        <EntityTypeShape EntityType="Model.developers" Width="1.5" PointX="0.75" PointY="14.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.developersForGame" Width="1.5" PointX="3" PointY="10" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.games" Width="1.5" PointX="0.75" PointY="9.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.genres" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.genresForGame" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.languages" Width="1.5" PointX="0.75" PointY="17.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.languagesForGame" Width="1.5" PointX="3" PointY="13" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.publishers" Width="1.5" PointX="3.75" PointY="16.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.publishersForGame" Width="1.5" PointX="6" PointY="10" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.reviews" Width="1.5" PointX="3" PointY="21" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.roles" Width="1.5" PointX="1.5" PointY="25.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.tags" Width="1.5" PointX="3.75" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.tagsForGame" Width="1.5" PointX="6" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.userLibrary" Width="1.5" PointX="6" PointY="13" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.users" Width="1.5" PointX="3.75" PointY="24.5" IsExpanded="true" />
-        <AssociationConnector Association="Model.FK__developer__idDev__4E53A1AA" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__developer__idGam__4F47C5E3" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__genresFor__idGam__42E1EEFE" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__languages__idGam__37703C52" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__publisher__idGam__489AC854" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__reviews__idGame__5224328E" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__tagsForGa__idGam__3D2915A8" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__userLibra__idGam__58D1301D" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__genresFor__idGen__41EDCAC5" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__languages__idLan__367C1819" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__publisher__idPub__47A6A41B" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__users__roleId__5CA1C101" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__tagsForGa__idTag__3C34F16F" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__userLibra__idUse__57DD0BE4" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Model.developers" Width="1.5" PointX="0.75" PointY="7.375" />
+        <EntityTypeShape EntityType="Model.developersForGame" Width="1.5" PointX="3" PointY="8.375" />
+        <EntityTypeShape EntityType="Model.games" Width="1.5" PointX="0.75" PointY="10.5" />
+        <EntityTypeShape EntityType="Model.genres" Width="1.5" PointX="3.75" PointY="5.5" />
+        <EntityTypeShape EntityType="Model.genresForGame" Width="1.5" PointX="6" PointY="8.375" />
+        <EntityTypeShape EntityType="Model.languages" Width="1.5" PointX="0.75" PointY="15.5" />
+        <EntityTypeShape EntityType="Model.languagesForGame" Width="1.5" PointX="3" PointY="11.375" />
+        <EntityTypeShape EntityType="Model.publishers" Width="1.5" PointX="3.75" PointY="22.5" />
+        <EntityTypeShape EntityType="Model.publishersForGame" Width="1.5" PointX="6" PointY="14.375" />
+        <EntityTypeShape EntityType="Model.reviews" Width="1.5" PointX="3" PointY="19.5" />
+        <EntityTypeShape EntityType="Model.roles" Width="1.5" PointX="1.5" PointY="4.625" />
+        <EntityTypeShape EntityType="Model.tags" Width="1.5" PointX="0.75" PointY="18.5" />
+        <EntityTypeShape EntityType="Model.tagsForGame" Width="1.5" PointX="3" PointY="14.375" />
+        <EntityTypeShape EntityType="Model.userLibrary" Width="1.5" PointX="6" PointY="11.25" />
+        <EntityTypeShape EntityType="Model.users" Width="1.5" PointX="3.75" PointY="0.75" />
+        <AssociationConnector Association="Model.FK__developer__idDev__4E53A1AA" />
+        <AssociationConnector Association="Model.FK__developer__idGam__4F47C5E3" />
+        <AssociationConnector Association="Model.FK__genresFor__idGam__42E1EEFE" />
+        <AssociationConnector Association="Model.FK__languages__idGam__37703C52" />
+        <AssociationConnector Association="Model.FK__publisher__idGam__489AC854" />
+        <AssociationConnector Association="Model.FK__reviews__idGame__5F7E2DAC" />
+        <AssociationConnector Association="Model.FK__tagsForGa__idGam__3D2915A8" />
+        <AssociationConnector Association="Model.FK__userLibra__idGam__58D1301D" />
+        <AssociationConnector Association="Model.FK__genresFor__idGen__41EDCAC5" />
+        <AssociationConnector Association="Model.FK__languages__idLan__367C1819" />
+        <AssociationConnector Association="Model.FK__publisher__idPub__47A6A41B" />
+        <AssociationConnector Association="Model.FK__users__roleId__5CA1C101" />
+        <AssociationConnector Association="Model.FK__tagsForGa__idTag__3C34F16F" />
+        <AssociationConnector Association="Model.FK__userLibra__idUse__57DD0BE4" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

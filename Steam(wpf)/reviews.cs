@@ -17,7 +17,7 @@ namespace Steam_wpf_
         public int idReview { get; set; }
         public int idGame { get; set; }
         public string reviewDesccription { get; set; }
-        public double rating { get; set; }
+        public bool rating { get; set; }
     
         public virtual games games { get; set; }
     }

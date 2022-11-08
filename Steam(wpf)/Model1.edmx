@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="developers">
           <Key>
             <PropertyRef Name="idDeveloper" />
@@ -30,6 +30,8 @@
           <Property Name="gameDescription" Type="nvarchar(max)" />
           <Property Name="releaseDate" Type="date" Nullable="false" />
           <Property Name="gamePrice" Type="int" Nullable="false" />
+          <Property Name="isDiscounted" Type="bit" Nullable="false" />
+          <Property Name="priceWithDiscount" Type="int" />
         </EntityType>
         <EntityType Name="genres">
           <Key>
@@ -83,7 +85,7 @@
           <Property Name="idReview" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idGame" Type="int" Nullable="false" />
           <Property Name="reviewDesccription" Type="nvarchar(max)" />
-          <Property Name="rating" Type="float" Nullable="false" />
+          <Property Name="rating" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="roles">
           <Key>
@@ -226,7 +228,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__reviews__idGame__5224328E">
+        <Association Name="FK__reviews__idGame__5F7E2DAC">
           <End Role="games" Type="Self.games" Multiplicity="1" />
           <End Role="reviews" Type="Self.reviews" Multiplicity="*" />
           <ReferentialConstraint>
@@ -346,7 +348,7 @@
             <End Role="publishers" EntitySet="publishers" />
             <End Role="publishersForGame" EntitySet="publishersForGame" />
           </AssociationSet>
-          <AssociationSet Name="FK__reviews__idGame__5224328E" Association="Self.FK__reviews__idGame__5224328E">
+          <AssociationSet Name="FK__reviews__idGame__5F7E2DAC" Association="Self.FK__reviews__idGame__5F7E2DAC">
             <End Role="games" EntitySet="games" />
             <End Role="reviews" EntitySet="reviews" />
           </AssociationSet>
@@ -371,19 +373,91 @@
             <End Role="users" EntitySet="users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="steamEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="developers" EntityType="Model.developers" />
+          <EntitySet Name="developersForGame" EntityType="Model.developersForGame" />
+          <EntitySet Name="games" EntityType="Model.games" />
+          <EntitySet Name="genres" EntityType="Model.genres" />
+          <EntitySet Name="genresForGame" EntityType="Model.genresForGame" />
+          <EntitySet Name="languages" EntityType="Model.languages" />
+          <EntitySet Name="languagesForGame" EntityType="Model.languagesForGame" />
+          <EntitySet Name="publishers" EntityType="Model.publishers" />
+          <EntitySet Name="publishersForGame" EntityType="Model.publishersForGame" />
+          <EntitySet Name="reviews" EntityType="Model.reviews" />
+          <EntitySet Name="roles" EntityType="Model.roles" />
+          <EntitySet Name="tags" EntityType="Model.tags" />
+          <EntitySet Name="tagsForGame" EntityType="Model.tagsForGame" />
+          <EntitySet Name="userLibrary" EntityType="Model.userLibrary" />
+          <EntitySet Name="users" EntityType="Model.users" />
+          <AssociationSet Name="FK__developer__idDev__4E53A1AA" Association="Model.FK__developer__idDev__4E53A1AA">
+            <End Role="developers" EntitySet="developers" />
+            <End Role="developersForGame" EntitySet="developersForGame" />
+          </AssociationSet>
+          <AssociationSet Name="FK__developer__idGam__4F47C5E3" Association="Model.FK__developer__idGam__4F47C5E3">
+            <End Role="games" EntitySet="games" />
+            <End Role="developersForGame" EntitySet="developersForGame" />
+          </AssociationSet>
+          <AssociationSet Name="FK__genresFor__idGam__42E1EEFE" Association="Model.FK__genresFor__idGam__42E1EEFE">
+            <End Role="games" EntitySet="games" />
+            <End Role="genresForGame" EntitySet="genresForGame" />
+          </AssociationSet>
+          <AssociationSet Name="FK__languages__idGam__37703C52" Association="Model.FK__languages__idGam__37703C52">
+            <End Role="games" EntitySet="games" />
+            <End Role="languagesForGame" EntitySet="languagesForGame" />
+          </AssociationSet>
+          <AssociationSet Name="FK__publisher__idGam__489AC854" Association="Model.FK__publisher__idGam__489AC854">
+            <End Role="games" EntitySet="games" />
+            <End Role="publishersForGame" EntitySet="publishersForGame" />
+          </AssociationSet>
+          <AssociationSet Name="FK__reviews__idGame__5F7E2DAC" Association="Model.FK__reviews__idGame__5F7E2DAC">
+            <End Role="games" EntitySet="games" />
+            <End Role="reviews" EntitySet="reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tagsForGa__idGam__3D2915A8" Association="Model.FK__tagsForGa__idGam__3D2915A8">
+            <End Role="games" EntitySet="games" />
+            <End Role="tagsForGame" EntitySet="tagsForGame" />
+          </AssociationSet>
+          <AssociationSet Name="FK__userLibra__idGam__58D1301D" Association="Model.FK__userLibra__idGam__58D1301D">
+            <End Role="games" EntitySet="games" />
+            <End Role="userLibrary" EntitySet="userLibrary" />
+          </AssociationSet>
+          <AssociationSet Name="FK__genresFor__idGen__41EDCAC5" Association="Model.FK__genresFor__idGen__41EDCAC5">
+            <End Role="genres" EntitySet="genres" />
+            <End Role="genresForGame" EntitySet="genresForGame" />
+          </AssociationSet>
+          <AssociationSet Name="FK__languages__idLan__367C1819" Association="Model.FK__languages__idLan__367C1819">
+            <End Role="languages" EntitySet="languages" />
+            <End Role="languagesForGame" EntitySet="languagesForGame" />
+          </AssociationSet>
+          <AssociationSet Name="FK__publisher__idPub__47A6A41B" Association="Model.FK__publisher__idPub__47A6A41B">
+            <End Role="publishers" EntitySet="publishers" />
+            <End Role="publishersForGame" EntitySet="publishersForGame" />
+          </AssociationSet>
+          <AssociationSet Name="FK__users__roleId__5CA1C101" Association="Model.FK__users__roleId__5CA1C101">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tagsForGa__idTag__3C34F16F" Association="Model.FK__tagsForGa__idTag__3C34F16F">
+            <End Role="tags" EntitySet="tags" />
+            <End Role="tagsForGame" EntitySet="tagsForGame" />
+          </AssociationSet>
+          <AssociationSet Name="FK__userLibra__idUse__57DD0BE4" Association="Model.FK__userLibra__idUse__57DD0BE4">
+            <End Role="users" EntitySet="users" />
+            <End Role="userLibrary" EntitySet="userLibrary" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="developers">
           <Key>
             <PropertyRef Name="idDeveloper" />
           </Key>
           <Property Name="idDeveloper" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="developerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="developerName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="subscribers" Type="Int32" />
-          <NavigationProperty Name="developersForGame" Relationship="Self.FK__developer__idDev__4E53A1AA" FromRole="developers" ToRole="developersForGame" />
+          <NavigationProperty Name="developersForGame" Relationship="Model.FK__developer__idDev__4E53A1AA" FromRole="developers" ToRole="developersForGame" />
         </EntityType>
         <EntityType Name="developersForGame">
           <Key>
@@ -392,33 +466,35 @@
           <Property Name="idDevelopersForGame" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idDeveloper" Type="Int32" Nullable="false" />
           <Property Name="idGame" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="developers" Relationship="Self.FK__developer__idDev__4E53A1AA" FromRole="developersForGame" ToRole="developers" />
-          <NavigationProperty Name="games" Relationship="Self.FK__developer__idGam__4F47C5E3" FromRole="developersForGame" ToRole="games" />
+          <NavigationProperty Name="developers" Relationship="Model.FK__developer__idDev__4E53A1AA" FromRole="developersForGame" ToRole="developers" />
+          <NavigationProperty Name="games" Relationship="Model.FK__developer__idGam__4F47C5E3" FromRole="developersForGame" ToRole="games" />
         </EntityType>
         <EntityType Name="games">
           <Key>
             <PropertyRef Name="idGame" />
           </Key>
           <Property Name="idGame" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="gameName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="gameName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="gameDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="releaseDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="gamePrice" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="developersForGame" Relationship="Self.FK__developer__idGam__4F47C5E3" FromRole="games" ToRole="developersForGame" />
-          <NavigationProperty Name="genresForGame" Relationship="Self.FK__genresFor__idGam__42E1EEFE" FromRole="games" ToRole="genresForGame" />
-          <NavigationProperty Name="languagesForGame" Relationship="Self.FK__languages__idGam__37703C52" FromRole="games" ToRole="languagesForGame" />
-          <NavigationProperty Name="publishersForGame" Relationship="Self.FK__publisher__idGam__489AC854" FromRole="games" ToRole="publishersForGame" />
-          <NavigationProperty Name="reviews" Relationship="Self.FK__reviews__idGame__5224328E" FromRole="games" ToRole="reviews" />
-          <NavigationProperty Name="tagsForGame" Relationship="Self.FK__tagsForGa__idGam__3D2915A8" FromRole="games" ToRole="tagsForGame" />
-          <NavigationProperty Name="userLibrary" Relationship="Self.FK__userLibra__idGam__58D1301D" FromRole="games" ToRole="userLibrary" />
+          <Property Name="isDiscounted" Type="Boolean" Nullable="false" />
+          <Property Name="priceWithDiscount" Type="Int32" />
+          <NavigationProperty Name="developersForGame" Relationship="Model.FK__developer__idGam__4F47C5E3" FromRole="games" ToRole="developersForGame" />
+          <NavigationProperty Name="genresForGame" Relationship="Model.FK__genresFor__idGam__42E1EEFE" FromRole="games" ToRole="genresForGame" />
+          <NavigationProperty Name="languagesForGame" Relationship="Model.FK__languages__idGam__37703C52" FromRole="games" ToRole="languagesForGame" />
+          <NavigationProperty Name="publishersForGame" Relationship="Model.FK__publisher__idGam__489AC854" FromRole="games" ToRole="publishersForGame" />
+          <NavigationProperty Name="reviews" Relationship="Model.FK__reviews__idGame__5F7E2DAC" FromRole="games" ToRole="reviews" />
+          <NavigationProperty Name="tagsForGame" Relationship="Model.FK__tagsForGa__idGam__3D2915A8" FromRole="games" ToRole="tagsForGame" />
+          <NavigationProperty Name="userLibrary" Relationship="Model.FK__userLibra__idGam__58D1301D" FromRole="games" ToRole="userLibrary" />
         </EntityType>
         <EntityType Name="genres">
           <Key>
             <PropertyRef Name="idGenre" />
           </Key>
           <Property Name="idGenre" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="genreName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="genresForGame" Relationship="Self.FK__genresFor__idGen__41EDCAC5" FromRole="genres" ToRole="genresForGame" />
+          <Property Name="genreName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="genresForGame" Relationship="Model.FK__genresFor__idGen__41EDCAC5" FromRole="genres" ToRole="genresForGame" />
         </EntityType>
         <EntityType Name="genresForGame">
           <Key>
@@ -427,16 +503,16 @@
           <Property Name="idGenresForGame" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idGenre" Type="Int32" Nullable="false" />
           <Property Name="idGame" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="games" Relationship="Self.FK__genresFor__idGam__42E1EEFE" FromRole="genresForGame" ToRole="games" />
-          <NavigationProperty Name="genres" Relationship="Self.FK__genresFor__idGen__41EDCAC5" FromRole="genresForGame" ToRole="genres" />
+          <NavigationProperty Name="games" Relationship="Model.FK__genresFor__idGam__42E1EEFE" FromRole="genresForGame" ToRole="games" />
+          <NavigationProperty Name="genres" Relationship="Model.FK__genresFor__idGen__41EDCAC5" FromRole="genresForGame" ToRole="genres" />
         </EntityType>
         <EntityType Name="languages">
           <Key>
             <PropertyRef Name="idLanguage" />
           </Key>
           <Property Name="idLanguage" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="languageName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="languagesForGame" Relationship="Self.FK__languages__idLan__367C1819" FromRole="languages" ToRole="languagesForGame" />
+          <Property Name="languageName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="languagesForGame" Relationship="Model.FK__languages__idLan__367C1819" FromRole="languages" ToRole="languagesForGame" />
         </EntityType>
         <EntityType Name="languagesForGame">
           <Key>
@@ -445,16 +521,16 @@
           <Property Name="idLanguagesForGame" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idLanguage" Type="Int32" Nullable="false" />
           <Property Name="idGame" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="games" Relationship="Self.FK__languages__idGam__37703C52" FromRole="languagesForGame" ToRole="games" />
-          <NavigationProperty Name="languages" Relationship="Self.FK__languages__idLan__367C1819" FromRole="languagesForGame" ToRole="languages" />
+          <NavigationProperty Name="games" Relationship="Model.FK__languages__idGam__37703C52" FromRole="languagesForGame" ToRole="games" />
+          <NavigationProperty Name="languages" Relationship="Model.FK__languages__idLan__367C1819" FromRole="languagesForGame" ToRole="languages" />
         </EntityType>
         <EntityType Name="publishers">
           <Key>
             <PropertyRef Name="idPublisher" />
           </Key>
           <Property Name="idPublisher" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="publisherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="publishersForGame" Relationship="Self.FK__publisher__idPub__47A6A41B" FromRole="publishers" ToRole="publishersForGame" />
+          <Property Name="publisherName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="publishersForGame" Relationship="Model.FK__publisher__idPub__47A6A41B" FromRole="publishers" ToRole="publishersForGame" />
         </EntityType>
         <EntityType Name="publishersForGame">
           <Key>
@@ -463,8 +539,8 @@
           <Property Name="idPublishersForGame" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idPublisher" Type="Int32" Nullable="false" />
           <Property Name="idGame" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="games" Relationship="Self.FK__publisher__idGam__489AC854" FromRole="publishersForGame" ToRole="games" />
-          <NavigationProperty Name="publishers" Relationship="Self.FK__publisher__idPub__47A6A41B" FromRole="publishersForGame" ToRole="publishers" />
+          <NavigationProperty Name="games" Relationship="Model.FK__publisher__idGam__489AC854" FromRole="publishersForGame" ToRole="games" />
+          <NavigationProperty Name="publishers" Relationship="Model.FK__publisher__idPub__47A6A41B" FromRole="publishersForGame" ToRole="publishers" />
         </EntityType>
         <EntityType Name="reviews">
           <Key>
@@ -473,8 +549,8 @@
           <Property Name="idReview" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idGame" Type="Int32" Nullable="false" />
           <Property Name="reviewDesccription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="rating" Type="Double" Nullable="false" />
-          <NavigationProperty Name="games" Relationship="Self.FK__reviews__idGame__5224328E" FromRole="reviews" ToRole="games" />
+          <Property Name="rating" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="games" Relationship="Model.FK__reviews__idGame__5F7E2DAC" FromRole="reviews" ToRole="games" />
         </EntityType>
         <EntityType Name="roles">
           <Key>
@@ -482,15 +558,15 @@
           </Key>
           <Property Name="idRole" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nameRole" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="users" Relationship="Self.FK__users__roleId__5CA1C101" FromRole="roles" ToRole="users" />
+          <NavigationProperty Name="users" Relationship="Model.FK__users__roleId__5CA1C101" FromRole="roles" ToRole="users" />
         </EntityType>
         <EntityType Name="tags">
           <Key>
             <PropertyRef Name="idTag" />
           </Key>
           <Property Name="idTag" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="tagName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="tagsForGame" Relationship="Self.FK__tagsForGa__idTag__3C34F16F" FromRole="tags" ToRole="tagsForGame" />
+          <Property Name="tagName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tagsForGame" Relationship="Model.FK__tagsForGa__idTag__3C34F16F" FromRole="tags" ToRole="tagsForGame" />
         </EntityType>
         <EntityType Name="tagsForGame">
           <Key>
@@ -499,8 +575,8 @@
           <Property Name="idtagsForGame" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idTag" Type="Int32" Nullable="false" />
           <Property Name="idGame" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="games" Relationship="Self.FK__tagsForGa__idGam__3D2915A8" FromRole="tagsForGame" ToRole="games" />
-          <NavigationProperty Name="tags" Relationship="Self.FK__tagsForGa__idTag__3C34F16F" FromRole="tagsForGame" ToRole="tags" />
+          <NavigationProperty Name="games" Relationship="Model.FK__tagsForGa__idGam__3D2915A8" FromRole="tagsForGame" ToRole="games" />
+          <NavigationProperty Name="tags" Relationship="Model.FK__tagsForGa__idTag__3C34F16F" FromRole="tagsForGame" ToRole="tags" />
         </EntityType>
         <EntityType Name="userLibrary">
           <Key>
@@ -510,28 +586,28 @@
           <Property Name="idUser" Type="Int32" Nullable="false" />
           <Property Name="idGame" Type="Int32" Nullable="false" />
           <Property Name="userPlayedTime" Type="Double" Nullable="false" />
-          <NavigationProperty Name="games" Relationship="Self.FK__userLibra__idGam__58D1301D" FromRole="userLibrary" ToRole="games" />
-          <NavigationProperty Name="users" Relationship="Self.FK__userLibra__idUse__57DD0BE4" FromRole="userLibrary" ToRole="users" />
+          <NavigationProperty Name="games" Relationship="Model.FK__userLibra__idGam__58D1301D" FromRole="userLibrary" ToRole="games" />
+          <NavigationProperty Name="users" Relationship="Model.FK__userLibra__idUse__57DD0BE4" FromRole="userLibrary" ToRole="users" />
         </EntityType>
         <EntityType Name="users">
           <Key>
             <PropertyRef Name="idUser" />
           </Key>
           <Property Name="idUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nickname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="nickname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="userSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="userMidname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="userBalance" Type="Double" Nullable="false" />
-          <Property Name="userLogin" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="userPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="userLogin" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="userPassword" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="roleId" Type="Int32" />
-          <NavigationProperty Name="roles" Relationship="Self.FK__users__roleId__5CA1C101" FromRole="users" ToRole="roles" />
-          <NavigationProperty Name="userLibrary" Relationship="Self.FK__userLibra__idUse__57DD0BE4" FromRole="users" ToRole="userLibrary" />
+          <NavigationProperty Name="roles" Relationship="Model.FK__users__roleId__5CA1C101" FromRole="users" ToRole="roles" />
+          <NavigationProperty Name="userLibrary" Relationship="Model.FK__userLibra__idUse__57DD0BE4" FromRole="users" ToRole="userLibrary" />
         </EntityType>
         <Association Name="FK__developer__idDev__4E53A1AA">
-          <End Role="developers" Type="Self.developers" Multiplicity="1" />
-          <End Role="developersForGame" Type="Self.developersForGame" Multiplicity="*" />
+          <End Type="Model.developers" Role="developers" Multiplicity="1" />
+          <End Type="Model.developersForGame" Role="developersForGame" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="developers">
               <PropertyRef Name="idDeveloper" />
@@ -542,8 +618,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__developer__idGam__4F47C5E3">
-          <End Role="games" Type="Self.games" Multiplicity="1" />
-          <End Role="developersForGame" Type="Self.developersForGame" Multiplicity="*" />
+          <End Type="Model.games" Role="games" Multiplicity="1" />
+          <End Type="Model.developersForGame" Role="developersForGame" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="games">
               <PropertyRef Name="idGame" />
@@ -554,8 +630,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__genresFor__idGam__42E1EEFE">
-          <End Role="games" Type="Self.games" Multiplicity="1" />
-          <End Role="genresForGame" Type="Self.genresForGame" Multiplicity="*" />
+          <End Type="Model.games" Role="games" Multiplicity="1" />
+          <End Type="Model.genresForGame" Role="genresForGame" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="games">
               <PropertyRef Name="idGame" />
@@ -566,8 +642,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__languages__idGam__37703C52">
-          <End Role="games" Type="Self.games" Multiplicity="1" />
-          <End Role="languagesForGame" Type="Self.languagesForGame" Multiplicity="*" />
+          <End Type="Model.games" Role="games" Multiplicity="1" />
+          <End Type="Model.languagesForGame" Role="languagesForGame" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="games">
               <PropertyRef Name="idGame" />
@@ -578,8 +654,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__publisher__idGam__489AC854">
-          <End Role="games" Type="Self.games" Multiplicity="1" />
-          <End Role="publishersForGame" Type="Self.publishersForGame" Multiplicity="*" />
+          <End Type="Model.games" Role="games" Multiplicity="1" />
+          <End Type="Model.publishersForGame" Role="publishersForGame" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="games">
               <PropertyRef Name="idGame" />
@@ -589,9 +665,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__reviews__idGame__5224328E">
-          <End Role="games" Type="Self.games" Multiplicity="1" />
-          <End Role="reviews" Type="Self.reviews" Multiplicity="*" />
+        <Association Name="FK__reviews__idGame__5F7E2DAC">
+          <End Type="Model.games" Role="games" Multiplicity="1" />
+          <End Type="Model.reviews" Role="reviews" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="games">
               <PropertyRef Name="idGame" />
@@ -602,8 +678,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__tagsForGa__idGam__3D2915A8">
-          <End Role="games" Type="Self.games" Multiplicity="1" />
-          <End Role="tagsForGame" Type="Self.tagsForGame" Multiplicity="*" />
+          <End Type="Model.games" Role="games" Multiplicity="1" />
+          <End Type="Model.tagsForGame" Role="tagsForGame" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="games">
               <PropertyRef Name="idGame" />
@@ -614,8 +690,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__userLibra__idGam__58D1301D">
-          <End Role="games" Type="Self.games" Multiplicity="1" />
-          <End Role="userLibrary" Type="Self.userLibrary" Multiplicity="*" />
+          <End Type="Model.games" Role="games" Multiplicity="1" />
+          <End Type="Model.userLibrary" Role="userLibrary" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="games">
               <PropertyRef Name="idGame" />
@@ -626,8 +702,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__genresFor__idGen__41EDCAC5">
-          <End Role="genres" Type="Self.genres" Multiplicity="1" />
-          <End Role="genresForGame" Type="Self.genresForGame" Multiplicity="*" />
+          <End Type="Model.genres" Role="genres" Multiplicity="1" />
+          <End Type="Model.genresForGame" Role="genresForGame" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="genres">
               <PropertyRef Name="idGenre" />
@@ -638,8 +714,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__languages__idLan__367C1819">
-          <End Role="languages" Type="Self.languages" Multiplicity="1" />
-          <End Role="languagesForGame" Type="Self.languagesForGame" Multiplicity="*" />
+          <End Type="Model.languages" Role="languages" Multiplicity="1" />
+          <End Type="Model.languagesForGame" Role="languagesForGame" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="languages">
               <PropertyRef Name="idLanguage" />
@@ -650,8 +726,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__publisher__idPub__47A6A41B">
-          <End Role="publishers" Type="Self.publishers" Multiplicity="1" />
-          <End Role="publishersForGame" Type="Self.publishersForGame" Multiplicity="*" />
+          <End Type="Model.publishers" Role="publishers" Multiplicity="1" />
+          <End Type="Model.publishersForGame" Role="publishersForGame" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="publishers">
               <PropertyRef Name="idPublisher" />
@@ -662,8 +738,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__users__roleId__5CA1C101">
-          <End Role="roles" Type="Self.roles" Multiplicity="0..1" />
-          <End Role="users" Type="Self.users" Multiplicity="*" />
+          <End Type="Model.roles" Role="roles" Multiplicity="0..1" />
+          <End Type="Model.users" Role="users" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="roles">
               <PropertyRef Name="idRole" />
@@ -674,8 +750,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__tagsForGa__idTag__3C34F16F">
-          <End Role="tags" Type="Self.tags" Multiplicity="1" />
-          <End Role="tagsForGame" Type="Self.tagsForGame" Multiplicity="*" />
+          <End Type="Model.tags" Role="tags" Multiplicity="1" />
+          <End Type="Model.tagsForGame" Role="tagsForGame" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tags">
               <PropertyRef Name="idTag" />
@@ -686,8 +762,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__userLibra__idUse__57DD0BE4">
-          <End Role="users" Type="Self.users" Multiplicity="1" />
-          <End Role="userLibrary" Type="Self.userLibrary" Multiplicity="*" />
+          <End Type="Model.users" Role="users" Multiplicity="1" />
+          <End Type="Model.userLibrary" Role="userLibrary" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="users">
               <PropertyRef Name="idUser" />
@@ -697,80 +773,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="steamEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="developers" EntityType="Self.developers" />
-          <EntitySet Name="developersForGame" EntityType="Self.developersForGame" />
-          <EntitySet Name="games" EntityType="Self.games" />
-          <EntitySet Name="genres" EntityType="Self.genres" />
-          <EntitySet Name="genresForGame" EntityType="Self.genresForGame" />
-          <EntitySet Name="languages" EntityType="Self.languages" />
-          <EntitySet Name="languagesForGame" EntityType="Self.languagesForGame" />
-          <EntitySet Name="publishers" EntityType="Self.publishers" />
-          <EntitySet Name="publishersForGame" EntityType="Self.publishersForGame" />
-          <EntitySet Name="reviews" EntityType="Self.reviews" />
-          <EntitySet Name="roles" EntityType="Self.roles" />
-          <EntitySet Name="tags" EntityType="Self.tags" />
-          <EntitySet Name="tagsForGame" EntityType="Self.tagsForGame" />
-          <EntitySet Name="userLibrary" EntityType="Self.userLibrary" />
-          <EntitySet Name="users" EntityType="Self.users" />
-          <AssociationSet Name="FK__developer__idDev__4E53A1AA" Association="Self.FK__developer__idDev__4E53A1AA">
-            <End Role="developers" EntitySet="developers" />
-            <End Role="developersForGame" EntitySet="developersForGame" />
-          </AssociationSet>
-          <AssociationSet Name="FK__developer__idGam__4F47C5E3" Association="Self.FK__developer__idGam__4F47C5E3">
-            <End Role="games" EntitySet="games" />
-            <End Role="developersForGame" EntitySet="developersForGame" />
-          </AssociationSet>
-          <AssociationSet Name="FK__genresFor__idGam__42E1EEFE" Association="Self.FK__genresFor__idGam__42E1EEFE">
-            <End Role="games" EntitySet="games" />
-            <End Role="genresForGame" EntitySet="genresForGame" />
-          </AssociationSet>
-          <AssociationSet Name="FK__languages__idGam__37703C52" Association="Self.FK__languages__idGam__37703C52">
-            <End Role="games" EntitySet="games" />
-            <End Role="languagesForGame" EntitySet="languagesForGame" />
-          </AssociationSet>
-          <AssociationSet Name="FK__publisher__idGam__489AC854" Association="Self.FK__publisher__idGam__489AC854">
-            <End Role="games" EntitySet="games" />
-            <End Role="publishersForGame" EntitySet="publishersForGame" />
-          </AssociationSet>
-          <AssociationSet Name="FK__reviews__idGame__5224328E" Association="Self.FK__reviews__idGame__5224328E">
-            <End Role="games" EntitySet="games" />
-            <End Role="reviews" EntitySet="reviews" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tagsForGa__idGam__3D2915A8" Association="Self.FK__tagsForGa__idGam__3D2915A8">
-            <End Role="games" EntitySet="games" />
-            <End Role="tagsForGame" EntitySet="tagsForGame" />
-          </AssociationSet>
-          <AssociationSet Name="FK__userLibra__idGam__58D1301D" Association="Self.FK__userLibra__idGam__58D1301D">
-            <End Role="games" EntitySet="games" />
-            <End Role="userLibrary" EntitySet="userLibrary" />
-          </AssociationSet>
-          <AssociationSet Name="FK__genresFor__idGen__41EDCAC5" Association="Self.FK__genresFor__idGen__41EDCAC5">
-            <End Role="genres" EntitySet="genres" />
-            <End Role="genresForGame" EntitySet="genresForGame" />
-          </AssociationSet>
-          <AssociationSet Name="FK__languages__idLan__367C1819" Association="Self.FK__languages__idLan__367C1819">
-            <End Role="languages" EntitySet="languages" />
-            <End Role="languagesForGame" EntitySet="languagesForGame" />
-          </AssociationSet>
-          <AssociationSet Name="FK__publisher__idPub__47A6A41B" Association="Self.FK__publisher__idPub__47A6A41B">
-            <End Role="publishers" EntitySet="publishers" />
-            <End Role="publishersForGame" EntitySet="publishersForGame" />
-          </AssociationSet>
-          <AssociationSet Name="FK__users__roleId__5CA1C101" Association="Self.FK__users__roleId__5CA1C101">
-            <End Role="roles" EntitySet="roles" />
-            <End Role="users" EntitySet="users" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tagsForGa__idTag__3C34F16F" Association="Self.FK__tagsForGa__idTag__3C34F16F">
-            <End Role="tags" EntitySet="tags" />
-            <End Role="tagsForGame" EntitySet="tagsForGame" />
-          </AssociationSet>
-          <AssociationSet Name="FK__userLibra__idUse__57DD0BE4" Association="Self.FK__userLibra__idUse__57DD0BE4">
-            <End Role="users" EntitySet="users" />
-            <End Role="userLibrary" EntitySet="userLibrary" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -779,140 +782,142 @@
           <EntitySetMapping Name="developers">
             <EntityTypeMapping TypeName="Model.developers">
               <MappingFragment StoreEntitySet="developers">
-                <ScalarProperty Name="idDeveloper" ColumnName="idDeveloper" />
-                <ScalarProperty Name="developerName" ColumnName="developerName" />
                 <ScalarProperty Name="subscribers" ColumnName="subscribers" />
+                <ScalarProperty Name="developerName" ColumnName="developerName" />
+                <ScalarProperty Name="idDeveloper" ColumnName="idDeveloper" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="developersForGame">
             <EntityTypeMapping TypeName="Model.developersForGame">
               <MappingFragment StoreEntitySet="developersForGame">
-                <ScalarProperty Name="idDevelopersForGame" ColumnName="idDevelopersForGame" />
-                <ScalarProperty Name="idDeveloper" ColumnName="idDeveloper" />
                 <ScalarProperty Name="idGame" ColumnName="idGame" />
+                <ScalarProperty Name="idDeveloper" ColumnName="idDeveloper" />
+                <ScalarProperty Name="idDevelopersForGame" ColumnName="idDevelopersForGame" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="games">
             <EntityTypeMapping TypeName="Model.games">
               <MappingFragment StoreEntitySet="games">
-                <ScalarProperty Name="idGame" ColumnName="idGame" />
-                <ScalarProperty Name="gameName" ColumnName="gameName" />
-                <ScalarProperty Name="gameDescription" ColumnName="gameDescription" />
-                <ScalarProperty Name="releaseDate" ColumnName="releaseDate" />
+                <ScalarProperty Name="priceWithDiscount" ColumnName="priceWithDiscount" />
+                <ScalarProperty Name="isDiscounted" ColumnName="isDiscounted" />
                 <ScalarProperty Name="gamePrice" ColumnName="gamePrice" />
+                <ScalarProperty Name="releaseDate" ColumnName="releaseDate" />
+                <ScalarProperty Name="gameDescription" ColumnName="gameDescription" />
+                <ScalarProperty Name="gameName" ColumnName="gameName" />
+                <ScalarProperty Name="idGame" ColumnName="idGame" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="genres">
             <EntityTypeMapping TypeName="Model.genres">
               <MappingFragment StoreEntitySet="genres">
-                <ScalarProperty Name="idGenre" ColumnName="idGenre" />
                 <ScalarProperty Name="genreName" ColumnName="genreName" />
+                <ScalarProperty Name="idGenre" ColumnName="idGenre" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="genresForGame">
             <EntityTypeMapping TypeName="Model.genresForGame">
               <MappingFragment StoreEntitySet="genresForGame">
-                <ScalarProperty Name="idGenresForGame" ColumnName="idGenresForGame" />
-                <ScalarProperty Name="idGenre" ColumnName="idGenre" />
                 <ScalarProperty Name="idGame" ColumnName="idGame" />
+                <ScalarProperty Name="idGenre" ColumnName="idGenre" />
+                <ScalarProperty Name="idGenresForGame" ColumnName="idGenresForGame" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="languages">
             <EntityTypeMapping TypeName="Model.languages">
               <MappingFragment StoreEntitySet="languages">
-                <ScalarProperty Name="idLanguage" ColumnName="idLanguage" />
                 <ScalarProperty Name="languageName" ColumnName="languageName" />
+                <ScalarProperty Name="idLanguage" ColumnName="idLanguage" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="languagesForGame">
             <EntityTypeMapping TypeName="Model.languagesForGame">
               <MappingFragment StoreEntitySet="languagesForGame">
-                <ScalarProperty Name="idLanguagesForGame" ColumnName="idLanguagesForGame" />
-                <ScalarProperty Name="idLanguage" ColumnName="idLanguage" />
                 <ScalarProperty Name="idGame" ColumnName="idGame" />
+                <ScalarProperty Name="idLanguage" ColumnName="idLanguage" />
+                <ScalarProperty Name="idLanguagesForGame" ColumnName="idLanguagesForGame" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="publishers">
             <EntityTypeMapping TypeName="Model.publishers">
               <MappingFragment StoreEntitySet="publishers">
-                <ScalarProperty Name="idPublisher" ColumnName="idPublisher" />
                 <ScalarProperty Name="publisherName" ColumnName="publisherName" />
+                <ScalarProperty Name="idPublisher" ColumnName="idPublisher" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="publishersForGame">
             <EntityTypeMapping TypeName="Model.publishersForGame">
               <MappingFragment StoreEntitySet="publishersForGame">
-                <ScalarProperty Name="idPublishersForGame" ColumnName="idPublishersForGame" />
-                <ScalarProperty Name="idPublisher" ColumnName="idPublisher" />
                 <ScalarProperty Name="idGame" ColumnName="idGame" />
+                <ScalarProperty Name="idPublisher" ColumnName="idPublisher" />
+                <ScalarProperty Name="idPublishersForGame" ColumnName="idPublishersForGame" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="reviews">
             <EntityTypeMapping TypeName="Model.reviews">
               <MappingFragment StoreEntitySet="reviews">
-                <ScalarProperty Name="idReview" ColumnName="idReview" />
-                <ScalarProperty Name="idGame" ColumnName="idGame" />
-                <ScalarProperty Name="reviewDesccription" ColumnName="reviewDesccription" />
                 <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="reviewDesccription" ColumnName="reviewDesccription" />
+                <ScalarProperty Name="idGame" ColumnName="idGame" />
+                <ScalarProperty Name="idReview" ColumnName="idReview" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="roles">
             <EntityTypeMapping TypeName="Model.roles">
               <MappingFragment StoreEntitySet="roles">
-                <ScalarProperty Name="idRole" ColumnName="idRole" />
                 <ScalarProperty Name="nameRole" ColumnName="nameRole" />
+                <ScalarProperty Name="idRole" ColumnName="idRole" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tags">
             <EntityTypeMapping TypeName="Model.tags">
               <MappingFragment StoreEntitySet="tags">
-                <ScalarProperty Name="idTag" ColumnName="idTag" />
                 <ScalarProperty Name="tagName" ColumnName="tagName" />
+                <ScalarProperty Name="idTag" ColumnName="idTag" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tagsForGame">
             <EntityTypeMapping TypeName="Model.tagsForGame">
               <MappingFragment StoreEntitySet="tagsForGame">
-                <ScalarProperty Name="idtagsForGame" ColumnName="idtagsForGame" />
-                <ScalarProperty Name="idTag" ColumnName="idTag" />
                 <ScalarProperty Name="idGame" ColumnName="idGame" />
+                <ScalarProperty Name="idTag" ColumnName="idTag" />
+                <ScalarProperty Name="idtagsForGame" ColumnName="idtagsForGame" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="userLibrary">
             <EntityTypeMapping TypeName="Model.userLibrary">
               <MappingFragment StoreEntitySet="userLibrary">
-                <ScalarProperty Name="idLibraryGame" ColumnName="idLibraryGame" />
-                <ScalarProperty Name="idUser" ColumnName="idUser" />
-                <ScalarProperty Name="idGame" ColumnName="idGame" />
                 <ScalarProperty Name="userPlayedTime" ColumnName="userPlayedTime" />
+                <ScalarProperty Name="idGame" ColumnName="idGame" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+                <ScalarProperty Name="idLibraryGame" ColumnName="idLibraryGame" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="users">
             <EntityTypeMapping TypeName="Model.users">
               <MappingFragment StoreEntitySet="users">
-                <ScalarProperty Name="idUser" ColumnName="idUser" />
-                <ScalarProperty Name="nickname" ColumnName="nickname" />
-                <ScalarProperty Name="userSurname" ColumnName="userSurname" />
-                <ScalarProperty Name="userName" ColumnName="userName" />
-                <ScalarProperty Name="userMidname" ColumnName="userMidname" />
-                <ScalarProperty Name="userBalance" ColumnName="userBalance" />
-                <ScalarProperty Name="userLogin" ColumnName="userLogin" />
-                <ScalarProperty Name="userPassword" ColumnName="userPassword" />
                 <ScalarProperty Name="roleId" ColumnName="roleId" />
+                <ScalarProperty Name="userPassword" ColumnName="userPassword" />
+                <ScalarProperty Name="userLogin" ColumnName="userLogin" />
+                <ScalarProperty Name="userBalance" ColumnName="userBalance" />
+                <ScalarProperty Name="userMidname" ColumnName="userMidname" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="userSurname" ColumnName="userSurname" />
+                <ScalarProperty Name="nickname" ColumnName="nickname" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -43,7 +43,7 @@
                                     <RowDefinition Height="auto"/>
                                 </Grid.RowDefinitions>
 
-                                <TextBlock Grid.Row="0" FontSize="24" Text="{Binding gameName}" Style="{StaticResource textBlockForListGameName}"/>
+                                <TextBlock Grid.Row="0" FontSize="26" Text="{Binding gameName}" Style="{StaticResource textBlockForListGameName}"/>
                                 <TextBlock Grid.Row="1" Text="{Binding releaseDateUpd}" Style="{StaticResource textBlockForListGameDate}"/>
 
                                 <StackPanel Grid.Row="2" Orientation="Horizontal">
@@ -109,7 +109,7 @@
                                     </ListView>
                                 </StackPanel>
                                 <TextBlock Grid.Row="5" Uid="{Binding idGame}" Name="ratingForGameTB" Loaded="ratingForGameTB_Loaded" Foreground="#67C1F5" TextWrapping="Wrap"/>
-                                <TextBlock Grid.Row="6" Text="{Binding gamePriceUpd}" Style="{StaticResource textBlockForListGamePrice}" HorizontalAlignment="Right"/>
+                                <TextBlock Grid.Row="6" FontSize="15" Name="priceTB" Loaded="priceTB_Loaded" Uid="{Binding idGame}" Foreground="{Binding discount}" Style="{StaticResource textBlockForListGamePrice}" HorizontalAlignment="Right"/>
                             </Grid>
 
                         </Grid>

@@ -52,25 +52,46 @@ namespace Steam_wpf_
                         {
                             if(Regex.IsMatch(passwordPB.Password, @"[A-Z]+"))
                             {
-                                if (passwordPB.Password.Equals(repeatPB.Password))
+                                if (Regex.IsMatch(passwordPB.Password, @"(?=.[0-9]){2,}"))
                                 {
-                                    users newUser = new users()
+                                    if (Regex.IsMatch(passwordPB.Password, @"[a-z]+.*[a-z]+.*[a-z]"))
                                     {
-                                        nickname = nicknameTB.Text,
-                                        userBalance = 0,
-                                        userLogin = loginTB.Text,
-                                        userPassword = passwordPB.Password.GetHashCode().ToString(),
-                                        roleId = 2
-                                    };
-                                    DBHelper.sE.users.Add(newUser);
-                                    DBHelper.sE.SaveChanges();
+                                        if (Regex.IsMatch(passwordPB.Password, @"\W"))
+                                        {
+                                            if (passwordPB.Password.Equals(repeatPB.Password))
+                                            {
+                                                users newUser = new users()
+                                                {
+                                                    nickname = nicknameTB.Text,
+                                                    userBalance = 0,
+                                                    userLogin = loginTB.Text,
+                                                    userPassword = passwordPB.Password.GetHashCode().ToString(),
+                                                    roleId = 2
+                                                };
+                                                DBHelper.sE.users.Add(newUser);
+                                                DBHelper.sE.SaveChanges();
 
-                                    MessageBox.Show("Регистрация прошла успешно", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
-                                    this.Close();
+                                                MessageBox.Show("Регистрация прошла успешно", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                                                this.Close();
+                                            }
+                                            else
+                                            {
+                                                MessageBox.Show("Пароли не совпадают", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("Пароль не содержит спец.символа", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("В пароле менее 3 строчных латинских символов", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    }
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Пароли не совпадают", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    MessageBox.Show("В пароле содержатся менее двух цифр", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                                 }
                             }
                             else

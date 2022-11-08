@@ -31,6 +31,8 @@ namespace Steam_wpf_
         public string gameDescription { get; set; }
         public System.DateTime releaseDate { get; set; }
         public int gamePrice { get; set; }
+        public bool isDiscounted { get; set; }
+        public Nullable<int> priceWithDiscount { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<developersForGame> developersForGame { get; set; }
