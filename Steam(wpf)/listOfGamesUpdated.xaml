@@ -12,6 +12,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="7*"/>
             <RowDefinition Height="3*"/>
+            <RowDefinition Height="0.5*"/>
         </Grid.RowDefinitions>
 
         <ListView Margin="0 20 0 0" Grid.Row="0" Name="gamesLV" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="gamesLV_SelectionChanged" Background="Transparent" BorderThickness="0">
@@ -43,7 +44,7 @@
                                 </Grid.RowDefinitions>
 
                                 <TextBlock Grid.Row="0" FontSize="24" Text="{Binding gameName}" Style="{StaticResource textBlockForListGameName}"/>
-                                <TextBlock Grid.Row="1" Text="{Binding releaseDate, ConverterCulture=ru, StringFormat={}dd MMMM yyyy}" Style="{StaticResource textBlockForListGameDate}"/>
+                                <TextBlock Grid.Row="1" Text="{Binding releaseDateUpd}" Style="{StaticResource textBlockForListGameDate}"/>
 
                                 <StackPanel Grid.Row="2" Orientation="Horizontal">
                                     <TextBlock Foreground="#67C1F5" Text="жанры: " VerticalAlignment="Center"/>
@@ -178,6 +179,8 @@
             </Grid>
 
         </Grid>
-        
+
+        <TextBlock Grid.Row="2" Name="totalCostTB" HorizontalAlignment="Right" Style="{StaticResource textBlockForListGamePrice}"/>
+
     </Grid>
 </Page>

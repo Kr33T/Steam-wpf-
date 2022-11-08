@@ -15,5 +15,13 @@ namespace Steam_wpf_
                 return gamePrice + " руб.";
             }
         }
+
+        public string releaseDateUpd
+        {
+            get
+            {
+                return releaseDate.ToString("dd MMM. yyyy");
+            }
+        }
     }
 }

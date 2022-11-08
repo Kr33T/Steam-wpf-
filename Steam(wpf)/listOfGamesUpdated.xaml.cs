@@ -27,11 +27,25 @@ namespace Steam_wpf_
             InitializeComponent();
             gamesLV.ItemsSource = gamesList;
             gamesLV.SelectedValuePath = "idGame";
+            uint sum = 0;
+
+            foreach (var item in gamesList)
+            {
+                sum += (uint)item.gamePrice;
+            }
+
+            totalCostTB.Text = "Общая стоимость: " + sum.ToString() + " руб.";
         }
 
         private void ratingForGameTB_Loaded(object sender, RoutedEventArgs e)
         {
+            int index = Convert.ToInt32((sender as TextBlock).Uid);
 
+            List<reviews> reviews = DBHelper.sE.reviews.Where(x => x.idGame == index).ToList();
+
+            int posReviewsK = reviews.Where(x => x.rating == true);
+
+            
         }
 
         private void gamesLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
