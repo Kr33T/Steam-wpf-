@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Steam_wpf_.page;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -125,6 +126,12 @@ namespace Steam_wpf_
                 bind.Path = new PropertyPath("gamePriceUpd");
                 (sender as TextBlock).SetBinding(TextBlock.TextProperty, bind);
             }
+        }
+
+        private void gamesLV_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            int index = (int)gamesLV.SelectedValue;
+            frameClass.mainFrame.Navigate(new gameEdit(index));
         }
     }
 }

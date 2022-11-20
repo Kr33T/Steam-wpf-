@@ -15,7 +15,7 @@
             <RowDefinition Height="0.5*"/>
         </Grid.RowDefinitions>
 
-        <ListView Margin="0 20 0 0" Grid.Row="0" Name="gamesLV" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="gamesLV_SelectionChanged" Background="Transparent" BorderThickness="0">
+        <ListView Margin="0 20 0 0" Grid.Row="0" Name="gamesLV" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="gamesLV_SelectionChanged" MouseDoubleClick="gamesLV_MouseDoubleClick" Background="Transparent" BorderThickness="0">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel HorizontalAlignment="Center"/>
@@ -24,7 +24,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border>
-                        <Grid Background="#16202D">
+                        <Grid Background="#16202D" Uid="{Binding idGame}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="3*"/>
                                 <ColumnDefinition Width="7*"/>
@@ -175,7 +175,7 @@
 
                 <TextBlock Grid.Row="0" Text="Описание:" Foreground="#C7CCC9"/>
 
-                <TextBox Grid.Row="1" Margin="5 10 0 0" Width="auto" IsReadOnly="True" Name="gameDescriptionTB" TextWrapping="Wrap" Style="{StaticResource textBoxAdminWindow}"/>
+                <TextBox Grid.Row="1" Margin="5 10 0 0" Width="auto" IsReadOnly="True" Name="gameDescriptionTB" TextWrapping="Wrap" VerticalContentAlignment="Top" Style="{StaticResource textBoxAdminWindow}"/>
             </Grid>
 
         </Grid>

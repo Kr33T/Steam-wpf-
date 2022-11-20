@@ -1,0 +1,87 @@
+﻿<Page x:Class="Steam_wpf_.page.gameEdit"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Steam_wpf_.page"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="gameEdit">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.2*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Vertical" Grid.Column="0" HorizontalAlignment="Stretch">
+                <TextBlock Style="{StaticResource textBlocks}" Text="Название игры"/>
+                <TextBox Style="{StaticResource textBoxes}" Name="gameNameTB"/>
+
+                <TextBlock Style="{StaticResource textBlocks}" Text="Дата выхода"/>
+                <DatePicker Background="Black" Foreground="Black" Name="releaseDateDP"/>
+
+                <TextBlock Style="{StaticResource textBlocks}" Text="Цена"/>
+                <TextBox Style="{StaticResource textBoxes}" Name="gamePriceTB"/>
+
+                <StackPanel>
+                    <TextBlock Text="Описание" Style="{StaticResource textBlocks}"/>
+                    <TextBox Style="{StaticResource textBoxDescription}" Height="200" TextWrapping="Wrap" VerticalContentAlignment="Top" Name="gameDescriptionTB"/>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                <Image MouseDown="Image_MouseDown" Width="200" Height="200" />
+                <Button Content="Добавить картинку" Style="{StaticResource buttons}" Click="AddPic_Click" Name="AddPic" Margin="10 0 10 0"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0">
+                <TextBlock Style="{StaticResource textBlocks}" Text="Метки"/>
+                <ListView Name="ListOfTagsLV" SelectionMode="Multiple" Height="150" ScrollViewer.VerticalScrollBarVisibility="Hidden" Background="Transparent" BorderThickness="0" Foreground="#67C1F5"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1">
+                <TextBlock Style="{StaticResource textBlocks}" Text="Жанры"/>
+                <ListView Name="ListOfGenresLV" SelectionMode="Multiple" Height="150" ScrollViewer.VerticalScrollBarVisibility="Hidden" Background="Transparent" BorderThickness="0" Foreground="#67C1F5"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="2">
+                <TextBlock Style="{StaticResource textBlocks}" Text="Разработчики"/>
+                <ListView Name="ListOfDevelopersLV" SelectionMode="Multiple" Height="150" ScrollViewer.VerticalScrollBarVisibility="Hidden" Background="Transparent" BorderThickness="0" Foreground="#67C1F5"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="3">
+                <TextBlock Style="{StaticResource textBlocks}" Text="Издатели"/>
+                <ListView Name="ListtOfPublishersLV" SelectionMode="Multiple" Height="150" ScrollViewer.VerticalScrollBarVisibility="Hidden" Background="Transparent" BorderThickness="0" Foreground="#67C1F5"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="4">
+                <TextBlock Style="{StaticResource textBlocks}" Text="Языки"/>
+                <ListView Name="ListOfLanguagesLV" SelectionMode="Multiple" Height="150" ScrollViewer.VerticalScrollBarVisibility="Hidden" Background="Transparent" BorderThickness="0" Foreground="#67C1F5"/>
+            </StackPanel>
+        </Grid>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Style="{StaticResource buttons}" Width="100" Name="deleteBtn" Click="deleteBtn_Click" Content="Удалить" Visibility="Hidden"/>
+            <Button Style="{StaticResource buttons}" Width="100" Click="actionBtn_Click" Name="actionBtn" Margin="20 0 0 0"/>
+            <Button Style="{StaticResource buttons}" Content="Отмена" Width="100" Margin="20 0 20 0" Name="cancelBtn" Click="cancelBtn_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>

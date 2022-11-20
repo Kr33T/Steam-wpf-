@@ -87,6 +87,9 @@
     <Compile Include="languagesForGame.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="page\gameEdit.xaml.cs">
+      <DependentUpon>gameEdit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="page\libraryPage.xaml.cs">
       <DependentUpon>libraryPage.xaml</DependentUpon>
     </Compile>
@@ -148,6 +151,10 @@
     <Compile Include="users.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Page Include="page\gameEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="page\libraryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

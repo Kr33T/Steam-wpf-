@@ -23,6 +23,7 @@
                 <MenuItem Header="admin" Name="adminItem">
                     <MenuItem Header="Список пользователей" Style="{StaticResource menuItemStyle}" Name="openUserList" Click="openUserList_Click"/>
                     <MenuItem Header="Список игр" Style="{StaticResource menuItemStyle}" Name="openGameList" Click="openGameList_Click"/>
+                    <MenuItem Header="Добавление новой игры" Style="{StaticResource menuItemStyle}" Name="addNewGame" Click="addNewGame_Click"/>
                 </MenuItem>
             </Menu>
         </StackPanel>

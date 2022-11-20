@@ -17,6 +17,13 @@
             <Setter Property="Height" Value="23"/>
         </Style>
 
+        <Style x:Key="textBoxDescription" TargetType="TextBox">
+            <Setter Property="Background" Value="#2A2E33"/>
+            <Setter Property="BorderBrush" Value="#4B5466"/>
+            <Setter Property="Foreground" Value="#D2D2D2"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
         <Style x:Key="pswrdBoxes" TargetType="PasswordBox">
             <Setter Property="Background" Value="#2A2E33"/>
             <Setter Property="BorderBrush" Value="#4B5466"/>

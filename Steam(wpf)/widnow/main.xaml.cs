@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Steam_wpf_.page;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -119,6 +120,11 @@ namespace Steam_wpf_
         private void openGameList_Click(object sender, RoutedEventArgs e)
         {
             frameClass.mainFrame.Navigate(new listOfGamesUpdated());
+        }
+
+        private void addNewGame_Click(object sender, RoutedEventArgs e)
+        {
+            frameClass.mainFrame.Navigate(new gameEdit());
         }
     }
 }
