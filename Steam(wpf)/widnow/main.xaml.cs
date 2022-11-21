@@ -1,4 +1,5 @@
 ﻿using Steam_wpf_.page;
+using Steam_wpf_.widnow;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace Steam_wpf_
 {
@@ -25,7 +27,30 @@ namespace Steam_wpf_
             InitializeComponent();
             profileL.Content = MainWindow.userNickname;
             frameClass.mainFrame = mainFrame;
-            if(MainWindow.userRole == 1)
+
+            int startPage = 0;
+            string path = Environment.CurrentDirectory;
+            path = path.Replace("bin\\Debug", "settings.txt");
+            string[] lines = File.ReadAllLines(path);
+            foreach (var line in lines)
+            {
+                string[] array = line.Split(';');
+                startPage = Convert.ToInt32(array[0]);
+            }
+            switch (startPage)
+            {
+                case 0:
+                    frameClass.mainFrame.Navigate(new storePage());
+                    break;
+                case 1:
+                    frameClass.mainFrame.Navigate(new libraryPage());
+                    break;
+                case 2:
+                    frameClass.mainFrame.Navigate(new profilePage());
+                    break;
+            }
+
+            if (MainWindow.userRole == 1)
             {
                 adminItem.Visibility = Visibility.Visible;
             }
@@ -125,6 +150,12 @@ namespace Steam_wpf_
         private void addNewGame_Click(object sender, RoutedEventArgs e)
         {
             frameClass.mainFrame.Navigate(new gameEdit());
+        }
+
+        private void settings_Click(object sender, RoutedEventArgs e)
+        {
+            settingsWindow settings = new settingsWindow();
+            settings.Show();
         }
     }
 }

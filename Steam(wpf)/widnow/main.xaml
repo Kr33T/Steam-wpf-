@@ -17,6 +17,7 @@
         <StackPanel Grid.Row="0">
             <Menu Height="25" Style="{StaticResource menuStyle}">
                 <MenuItem Header="Steam" BorderBrush="#2A2E33" Background="#2A2E33" >
+                    <MenuItem Header="Настройки" Style="{StaticResource menuItemStyle}" Name="settings" Click="settings_Click"/>
                     <MenuItem Header="Войти в другой аккаунт.." Style="{StaticResource menuItemStyle}" Name="exitAccount" Click="exitAccount_Click"/>
                     <MenuItem Header="Выход" Style="{StaticResource menuItemStyle}" Name="exitProg" Click="exitProg_Click"/>
                 </MenuItem>
