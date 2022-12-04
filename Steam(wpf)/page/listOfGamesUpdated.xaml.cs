@@ -1,6 +1,7 @@
 ﻿using Steam_wpf_.page;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Steam_wpf_
 {
@@ -131,7 +133,36 @@ namespace Steam_wpf_
         private void gamesLV_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             int index = (int)gamesLV.SelectedValue;
+
             frameClass.mainFrame.Navigate(new gameEdit(index));
+        }
+
+        private void gameImageI_Loaded(object sender, RoutedEventArgs e)
+        {
+            int index = Convert.ToInt32((sender as System.Windows.Controls.Image).Uid);
+
+            games game = DBHelper.sE.games.FirstOrDefault(x => x.idGame == index);
+
+            if(game.gameImage != null)
+            {
+                byte[] Barr = game.gameImage;
+                BitmapImage Bim = new BitmapImage();
+                using (MemoryStream MS = new MemoryStream(Barr))
+                {
+                    Bim.BeginInit();
+                    Bim.StreamSource = MS;
+                    Bim.CacheOption = BitmapCacheOption.OnLoad;
+                    Bim.EndInit();
+                }
+                (sender as System.Windows.Controls.Image).Source = Bim;
+                (sender as System.Windows.Controls.Image).Stretch = Stretch.Uniform;
+            }
+            else
+            {
+                string path = Environment.CurrentDirectory;
+                path = path.Replace("bin\\Debug", "Resources\\empty.jpg");
+                (sender as System.Windows.Controls.Image).Source = BitmapFrame.Create(new Uri(path));
+            }
         }
     }
 }

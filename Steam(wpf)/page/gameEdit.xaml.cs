@@ -1,6 +1,8 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -14,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Steam_wpf_.page
 {
@@ -47,6 +50,10 @@ namespace Steam_wpf_.page
             ListOfLanguagesLV.ItemsSource = DBHelper.sE.languages.ToList();
             ListOfLanguagesLV.SelectedValuePath = "idLanguage";
             ListOfLanguagesLV.DisplayMemberPath = "languageName";
+
+            string path = Environment.CurrentDirectory;
+            path = path.Replace("bin\\Debug", "Resources\\empty.jpg");
+            gameImageI.Source = BitmapFrame.Create(new Uri(path));
         }
 
         public gameEdit()
@@ -122,6 +129,26 @@ namespace Steam_wpf_.page
                     ListOfLanguagesLV.SelectedItems.Add(item);
                 }
             }
+            if (Game.gameImage != null)
+            {
+                Barray = Game.gameImage;
+                BitmapImage Bim = new BitmapImage();
+                using (MemoryStream MS = new MemoryStream(Barray))
+                {
+                    Bim.BeginInit();
+                    Bim.StreamSource = MS;
+                    Bim.CacheOption = BitmapCacheOption.OnLoad;
+                    Bim.EndInit();
+                }
+                gameImageI.Source = Bim;
+                gameImageI.Stretch = Stretch.Uniform;
+            }
+            else
+            {
+                string path = Environment.CurrentDirectory;
+                path = path.Replace("bin\\Debug", "Resources\\empty.jpg");
+                gameImageI.Source = BitmapFrame.Create(new Uri(path));
+            }
         }
 
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
@@ -129,16 +156,27 @@ namespace Steam_wpf_.page
             
         }
 
-        string path;
+        bool flag = false;
+        byte[] Barray;
 
         private void AddPic_Click(object sender, RoutedEventArgs e)
         {
-            //OpenFileDialog OFD = new OpenFileDialog();
-            //OFD.ShowDialog();
-            //path = OFD.FileName;
-            //string[] arrayPath = path.Split('\\');
-            //path = "\\" + arrayPath[arrayPath.Length - 2] + "\\" + arrayPath[arrayPath.Length - 1];
-            MessageBox.Show("Не реализовано");
+            try
+            {
+                string path;
+                OpenFileDialog OFD = new OpenFileDialog();
+                OFD.ShowDialog();
+                path = OFD.FileName;
+                System.Drawing.Image SDI = System.Drawing.Image.FromFile(path);
+                ImageConverter ISC = new ImageConverter();
+                Barray = (byte[])ISC.ConvertTo(SDI, typeof(byte[]));
+                gameImageI.Source = BitmapFrame.Create(new Uri(path));
+                flag = true;
+            }
+            catch
+            {
+
+            }
         }
 
         private void actionBtn_Click(object sender, RoutedEventArgs e)
@@ -151,6 +189,11 @@ namespace Steam_wpf_.page
                     Game.releaseDate = Convert.ToDateTime(releaseDateDP.SelectedDate);
                     Game.gamePrice = Convert.ToInt32(gamePriceTB.Text);
                     Game.gameDescription = gameDescriptionTB.Text;
+                    Game.gameImage = Barray;
+                    if(flag)
+                    {
+
+                    }
 
                     List<tagsForGame> tag = DBHelper.sE.tagsForGame.Where(x => x.idGame == Game.idGame).ToList();
                     if (tag.Count > 0)
@@ -252,6 +295,7 @@ namespace Steam_wpf_.page
                     Game.releaseDate = Convert.ToDateTime(releaseDateDP.SelectedDate);
                     Game.gamePrice = Convert.ToInt32(gamePriceTB.Text);
                     Game.gameDescription = gameDescriptionTB.Text;
+                    Game.gameImage = Barray;
 
                     DBHelper.sE.games.Add(Game);
 

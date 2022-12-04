@@ -17,6 +17,7 @@ namespace Steam_wpf_
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public users()
         {
+            this.reviews = new HashSet<reviews>();
             this.userLibrary = new HashSet<userLibrary>();
         }
     
@@ -29,7 +30,10 @@ namespace Steam_wpf_
         public string userLogin { get; set; }
         public string userPassword { get; set; }
         public Nullable<int> roleId { get; set; }
+        public byte[] userImage { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<reviews> reviews { get; set; }
         public virtual roles roles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<userLibrary> userLibrary { get; set; }

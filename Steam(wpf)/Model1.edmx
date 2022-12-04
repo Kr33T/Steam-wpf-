@@ -32,6 +32,7 @@
           <Property Name="gamePrice" Type="int" Nullable="false" />
           <Property Name="isDiscounted" Type="bit" Nullable="false" />
           <Property Name="priceWithDiscount" Type="int" />
+          <Property Name="gameImage" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="genres">
           <Key>
@@ -86,6 +87,8 @@
           <Property Name="idGame" Type="int" Nullable="false" />
           <Property Name="reviewDesccription" Type="nvarchar(max)" />
           <Property Name="rating" Type="bit" Nullable="false" />
+          <Property Name="idUser" Type="int" Nullable="false" />
+          <Property Name="publicationDate" Type="date" />
         </EntityType>
         <EntityType Name="roles">
           <Key>
@@ -131,6 +134,7 @@
           <Property Name="userLogin" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="userPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="roleId" Type="int" />
+          <Property Name="userImage" Type="varbinary(max)" />
         </EntityType>
         <Association Name="FK__developer__idDev__4E53A1AA">
           <End Role="developers" Type="Self.developers" Multiplicity="1" />
@@ -240,6 +244,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__reviews__idUser__74794A92">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="reviews" Type="Self.reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="reviews">
+              <PropertyRef Name="idUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__tagsForGa__idGam__3D2915A8">
           <End Role="games" Type="Self.games" Multiplicity="1" />
           <End Role="tagsForGame" Type="Self.tagsForGame" Multiplicity="*" />
@@ -300,6 +316,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_reviews_reviews">
+          <End Role="reviews" Type="Self.reviews" Multiplicity="1" />
+          <End Role="reviews1" Type="Self.reviews" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="reviews">
+              <PropertyRef Name="idReview" />
+            </Principal>
+            <Dependent Role="reviews1">
+              <PropertyRef Name="idReview" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Хранилище ModelContainer">
           <EntitySet Name="developers" EntityType="Self.developers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="developersForGame" EntityType="Self.developersForGame" Schema="dbo" store:Type="Tables" />
@@ -352,6 +380,10 @@
             <End Role="games" EntitySet="games" />
             <End Role="reviews" EntitySet="reviews" />
           </AssociationSet>
+          <AssociationSet Name="FK__reviews__idUser__74794A92" Association="Self.FK__reviews__idUser__74794A92">
+            <End Role="users" EntitySet="users" />
+            <End Role="reviews" EntitySet="reviews" />
+          </AssociationSet>
           <AssociationSet Name="FK__tagsForGa__idGam__3D2915A8" Association="Self.FK__tagsForGa__idGam__3D2915A8">
             <End Role="games" EntitySet="games" />
             <End Role="tagsForGame" EntitySet="tagsForGame" />
@@ -371,6 +403,10 @@
           <AssociationSet Name="FK__users__roleId__5CA1C101" Association="Self.FK__users__roleId__5CA1C101">
             <End Role="roles" EntitySet="roles" />
             <End Role="users" EntitySet="users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_reviews_reviews" Association="Self.FK_reviews_reviews">
+            <End Role="reviews" EntitySet="reviews" />
+            <End Role="reviews1" EntitySet="reviews" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -437,6 +473,14 @@
             <End Role="publishers" EntitySet="publishers" />
             <End Role="publishersForGame" EntitySet="publishersForGame" />
           </AssociationSet>
+          <AssociationSet Name="FK__reviews__idUser__74794A92" Association="Model.FK__reviews__idUser__74794A92">
+            <End Role="users" EntitySet="users" />
+            <End Role="reviews" EntitySet="reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_reviews_reviews" Association="Model.FK_reviews_reviews">
+            <End Role="reviews" EntitySet="reviews" />
+            <End Role="reviews1" EntitySet="reviews" />
+          </AssociationSet>
           <AssociationSet Name="FK__users__roleId__5CA1C101" Association="Model.FK__users__roleId__5CA1C101">
             <End Role="roles" EntitySet="roles" />
             <End Role="users" EntitySet="users" />
@@ -480,6 +524,7 @@
           <Property Name="gamePrice" Type="Int32" Nullable="false" />
           <Property Name="isDiscounted" Type="Boolean" Nullable="false" />
           <Property Name="priceWithDiscount" Type="Int32" />
+          <Property Name="gameImage" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="developersForGame" Relationship="Model.FK__developer__idGam__4F47C5E3" FromRole="games" ToRole="developersForGame" />
           <NavigationProperty Name="genresForGame" Relationship="Model.FK__genresFor__idGam__42E1EEFE" FromRole="games" ToRole="genresForGame" />
           <NavigationProperty Name="languagesForGame" Relationship="Model.FK__languages__idGam__37703C52" FromRole="games" ToRole="languagesForGame" />
@@ -550,7 +595,12 @@
           <Property Name="idGame" Type="Int32" Nullable="false" />
           <Property Name="reviewDesccription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="rating" Type="Boolean" Nullable="false" />
+          <Property Name="idUser" Type="Int32" Nullable="false" />
+          <Property Name="publicationDate" Type="DateTime" Precision="0" />
           <NavigationProperty Name="games" Relationship="Model.FK__reviews__idGame__5F7E2DAC" FromRole="reviews" ToRole="games" />
+          <NavigationProperty Name="users" Relationship="Model.FK__reviews__idUser__74794A92" FromRole="reviews" ToRole="users" />
+          <NavigationProperty Name="reviews1" Relationship="Model.FK_reviews_reviews" FromRole="reviews" ToRole="reviews1" />
+          <NavigationProperty Name="reviews2" Relationship="Model.FK_reviews_reviews" FromRole="reviews1" ToRole="reviews" />
         </EntityType>
         <EntityType Name="roles">
           <Key>
@@ -602,6 +652,8 @@
           <Property Name="userLogin" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="userPassword" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="roleId" Type="Int32" />
+          <Property Name="userImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="reviews" Relationship="Model.FK__reviews__idUser__74794A92" FromRole="users" ToRole="reviews" />
           <NavigationProperty Name="roles" Relationship="Model.FK__users__roleId__5CA1C101" FromRole="users" ToRole="roles" />
           <NavigationProperty Name="userLibrary" Relationship="Model.FK__userLibra__idUse__57DD0BE4" FromRole="users" ToRole="userLibrary" />
         </EntityType>
@@ -737,6 +789,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__reviews__idUser__74794A92">
+          <End Type="Model.users" Role="users" Multiplicity="1" />
+          <End Type="Model.reviews" Role="reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="reviews">
+              <PropertyRef Name="idUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_reviews_reviews">
+          <End Type="Model.reviews" Role="reviews" Multiplicity="1" />
+          <End Type="Model.reviews" Role="reviews1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="reviews">
+              <PropertyRef Name="idReview" />
+            </Principal>
+            <Dependent Role="reviews1">
+              <PropertyRef Name="idReview" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__users__roleId__5CA1C101">
           <End Type="Model.roles" Role="roles" Multiplicity="0..1" />
           <End Type="Model.users" Role="users" Multiplicity="*" />
@@ -800,6 +876,7 @@
           <EntitySetMapping Name="games">
             <EntityTypeMapping TypeName="Model.games">
               <MappingFragment StoreEntitySet="games">
+                <ScalarProperty Name="gameImage" ColumnName="gameImage" />
                 <ScalarProperty Name="priceWithDiscount" ColumnName="priceWithDiscount" />
                 <ScalarProperty Name="isDiscounted" ColumnName="isDiscounted" />
                 <ScalarProperty Name="gamePrice" ColumnName="gamePrice" />
@@ -864,6 +941,8 @@
           <EntitySetMapping Name="reviews">
             <EntityTypeMapping TypeName="Model.reviews">
               <MappingFragment StoreEntitySet="reviews">
+                <ScalarProperty Name="publicationDate" ColumnName="publicationDate" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
                 <ScalarProperty Name="rating" ColumnName="rating" />
                 <ScalarProperty Name="reviewDesccription" ColumnName="reviewDesccription" />
                 <ScalarProperty Name="idGame" ColumnName="idGame" />
@@ -909,6 +988,7 @@
           <EntitySetMapping Name="users">
             <EntityTypeMapping TypeName="Model.users">
               <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="userImage" ColumnName="userImage" />
                 <ScalarProperty Name="roleId" ColumnName="roleId" />
                 <ScalarProperty Name="userPassword" ColumnName="userPassword" />
                 <ScalarProperty Name="userLogin" ColumnName="userLogin" />

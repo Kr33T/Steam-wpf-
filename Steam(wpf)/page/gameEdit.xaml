@@ -38,7 +38,7 @@
             </StackPanel>
 
             <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                <Image MouseDown="Image_MouseDown" Width="200" Height="200" />
+                <Image MouseDown="Image_MouseDown" Width="200" Height="200" Name="gameImageI" />
                 <Button Content="Добавить картинку" Style="{StaticResource buttons}" Click="AddPic_Click" Name="AddPic" Margin="10 0 10 0"/>
             </StackPanel>
         </Grid>

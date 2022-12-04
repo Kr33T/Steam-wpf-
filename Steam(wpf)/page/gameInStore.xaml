@@ -1,0 +1,158 @@
+﻿<Page x:Class="Steam_wpf_.page.gameInStore"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Steam_wpf_.page"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="gameInStore" Background="#1B2838">
+    <ScrollViewer>
+        <Grid Margin="150 20 150 0" Background="#1A2330">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="6*"/>
+                    </Grid.RowDefinitions>
+
+                    <Image Grid.Row="0" HorizontalAlignment="Left" Name="gameImageI"/>
+
+                    <TextBlock Margin="5 0 5 0" Name="gameDescriptionTB" Style="{StaticResource textBlocks}" Grid.Row="1" TextWrapping="Wrap" Height="210"/>
+
+                </Grid>
+
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.3*"/>
+                        <RowDefinition Height="0.6*"/>
+                        <RowDefinition Height="0.25*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Name="gameNameTB" Grid.Row="0" FontSize="33" Foreground="White"/>
+
+                    <StackPanel Grid.Row="1">
+                        <StackPanel Orientation="Horizontal" Margin="4">
+                            <TextBlock Text="Жанры: " Foreground="#556772"/>
+                            <TextBlock Name="genresTB" Foreground="#8F98A0"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="4">
+                            <TextBlock Text="Все обзоры: " Foreground="#556772"/>
+                            <TextBlock Name="reviewsRateTB"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="4">
+                            <TextBlock Text="Разработчик: " Foreground="#556772"/>
+                            <TextBlock Name="developersTB" Foreground="#54C1F5"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="4">
+                            <TextBlock Text="Издатель: " Foreground="#556772"/>
+                            <TextBlock Name="publishersTB" Foreground="#54C1F5"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="4">
+                            <TextBlock Text="Дата выхода: " Foreground="#556772"/>
+                            <TextBlock Name="releaseDateTB" Foreground="#8F98A0"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2">
+                        <TextBlock Text="Популярные метки для этого продукта:" Foreground="#556772" Margin="4"/>
+                        <StackPanel Orientation="Horizontal">
+                            <ListView Name="tagsLV" Uid="{Binding idGame}" Width="415" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Background="Transparent" BorderThickness="0">
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding tags.tagName}" Style="{StaticResource listViewItemsAdminPageGames}"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                            <Button Content="+" Width="20" Height="20" Background="#2D4556" Foreground="#54C1F5" BorderThickness="0"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="3" Background="#3D4C5A" Margin="4" Height="64" VerticalAlignment="Top">
+                        <TextBlock Name="playInGameTB" Foreground="White" Margin="3" FontSize="18" HorizontalAlignment="Left"/>
+                        <StackPanel Background="Black" Orientation="Horizontal" Width="140" Height="32" HorizontalAlignment="Right" Margin="0 0 0 5">
+                            <TextBlock Name="gamePriceTB" Foreground="White" VerticalAlignment="Center" Margin="4 0 4 0" HorizontalAlignment="Left"/>
+                            <Button Content="Играть" Name="addToLibBTN" Background="#71AB21" Foreground="#D2EFA9" BorderBrush="Black" Margin="2" Width="85" Height="28" HorizontalAlignment="Right" Click="Button_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="1" Background="#465360">
+                <StackPanel>
+                    <TextBlock Name="headerReviewTB" Foreground="#54C1F5" FontSize="20"/>
+                    <TextBlock Foreground="#8F8D82" FontSize="12" Name="underHeaderTB"/>
+                    <RichTextBox Background="#222B35" BorderBrush="#233C51" Name="reviewTextRTB" Height="100" Margin="5 0 5 0">
+                        <RichTextBox.Resources>
+                            <Style TargetType="{x:Type Paragraph}">
+                                <Setter Property="Margin" Value="0" />
+                            </Style>
+                        </RichTextBox.Resources>
+                    </RichTextBox>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel>
+                            <TextBlock Text="Рекомендуете ли вы эту игру?"/>
+                            <StackPanel Orientation="Horizontal" Margin="10 0 0 0">
+                                <RadioButton Content="Да" Margin="10 0 5 0"/>
+                                <RadioButton Content="Нет" Margin="5 0 0 0"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <Button Name="publishBTN" Click="publishBTN_Click" Margin="600 10 10 10" Content="Опубликовать" HorizontalAlignment="Right" Background="#ACCFE3" Foreground="#2B5066" BorderThickness="0" />
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <ListView Name="reviewLV" Loaded="reviewLV_Loaded">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Background="#274156">
+                                <TextBlock Name="reviewRateTB" Uid="{Binding idReview}"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition Width="7*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0">
+                                        <TextBlock Name="userNameTB" Text="{Binding users.nickname}" Uid="{Binding idReview}"/>
+                                        <TextBlock Name="userPlayedTimeTB" Uid="{Binding idReview}"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Name="publicationDateTB" Uid="{Binding idReview}"/>
+                                        <TextBlock Name="reviewTextTB" Text="{Binding reviewDesccription}" Uid="{Binding idReview}"/>
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </Grid>
+    </ScrollViewer>
+</Page>

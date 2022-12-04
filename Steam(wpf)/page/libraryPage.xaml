@@ -9,6 +9,38 @@
       Title="libraryPage">
 
     <Grid>
-        <Label Content="library" Foreground="White"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2.3*"/>
+            <ColumnDefinition Width="8*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <StackPanel Background="#252930">
+                <TextBox Style="{StaticResource textBoxes}" Margin="3 3 3 0"/>
+                <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                    <ListBox Name="gamesLB" Background="Transparent" BorderThickness="0" SelectionChanged="gamesLB_SelectionChanged">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Height="18">
+                                    <Image Width="16" Margin="0 0 6 0" Height="16" Name="gameImageI" Loaded="gameImageI_Loaded" Uid="{Binding idGame}"/>
+                                    <TextBlock Style="{StaticResource textBlocks}" Text="{Binding games.gameName}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </ScrollViewer>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Frame Name="gamePresenterF">
+                
+            </Frame>
+        </Grid>
     </Grid>
 </Page>

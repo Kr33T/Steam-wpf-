@@ -18,7 +18,12 @@ namespace Steam_wpf_
         public int idGame { get; set; }
         public string reviewDesccription { get; set; }
         public bool rating { get; set; }
+        public int idUser { get; set; }
+        public Nullable<System.DateTime> publicationDate { get; set; }
     
         public virtual games games { get; set; }
+        public virtual users users { get; set; }
+        public virtual reviews reviews1 { get; set; }
+        public virtual reviews reviews2 { get; set; }
     }
 }

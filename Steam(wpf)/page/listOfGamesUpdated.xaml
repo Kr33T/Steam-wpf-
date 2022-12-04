@@ -30,7 +30,7 @@
                                 <ColumnDefinition Width="7*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Image Grid.Column="0" Width="250" Height="100"/>
+                            <Image Grid.Column="0" Width="250" Height="100" Name="gameImageI" Uid="{Binding idGame}" Loaded="gameImageI_Loaded"/>
 
                             <Grid Grid.Column="1" Width="700" Height="auto">
                                 <Grid.RowDefinitions>
@@ -111,7 +111,6 @@
                                 <TextBlock Grid.Row="5" Uid="{Binding idGame}" Name="ratingForGameTB" Loaded="ratingForGameTB_Loaded" Foreground="#67C1F5" TextWrapping="Wrap"/>
                                 <TextBlock Grid.Row="6" FontSize="15" Name="priceTB" Loaded="priceTB_Loaded" Uid="{Binding idGame}" Foreground="{Binding discount}" Style="{StaticResource textBlockForListGamePrice}" HorizontalAlignment="Right"/>
                             </Grid>
-
                         </Grid>
                     </Border>
                 </DataTemplate>

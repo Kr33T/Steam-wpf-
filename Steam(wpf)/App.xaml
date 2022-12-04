@@ -99,5 +99,12 @@
             <Setter Property="Background" Value="#2D4556"/>
             <Setter Property="Foreground" Value="#54C1F5"/>
         </Style>
+        <Style x:Key="playBTN" TargetType="Button">
+            <Setter Property="Background" Value="#45C435"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Width" Value="180"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
     </Application.Resources>
 </Application>

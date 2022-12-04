@@ -43,6 +43,7 @@ namespace Steam_wpf_
 
         public static int userRole;
         public static string userNickname;
+        public static int userId;
 
         private void enterBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -51,6 +52,7 @@ namespace Steam_wpf_
             {
                 userRole = (int)user.Where(x => x.userLogin.Equals(loginTB.Text) && x.userPassword.Equals(passwordPB.Password.GetHashCode().ToString())).First().roleId;
                 userNickname = user.Where(x => x.userLogin.Equals(loginTB.Text) && x.userPassword.Equals(passwordPB.Password.GetHashCode().ToString())).First().nickname;
+                userId = user.FirstOrDefault(x => x.userLogin.Equals(loginTB.Text) && x.userPassword.Equals(passwordPB.Password.GetHashCode().ToString())).idUser;
                 main window = new main();
                 window.Show();
                 this.Hide();
@@ -82,6 +84,7 @@ namespace Steam_wpf_
         {
             userRole = 1;
             userNickname = "admin";
+            userId = 9;
             main window = new main();
             window.Show();
             this.Hide();

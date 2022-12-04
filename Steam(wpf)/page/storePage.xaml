@@ -21,11 +21,21 @@
             </Grid.RowDefinitions>
 
             <StackPanel Orientation="Horizontal" Grid.Row="0" Background="#101822" Margin="8">
-                <TextBox Style="{StaticResource storeTextBoxes}" Width="250" Margin="10 0 10 0"/>
-                <Button Style="{StaticResource storeButtons}" Content="Поиск" Width="60"/>
+                <TextBox Style="{StaticResource storeTextBoxes}" Width="400" Margin="10 0 10 0" Name="searchTB"/>
+                <Button Style="{StaticResource storeButtons}" Content="Поиск" Width="60" Name="searchBTN" Click="searchBTN_Click"/>
+                <ComboBox Name="orderCB" Height="24" Margin="10 0 10 0" SelectionChanged="orderCB_SelectionChanged">
+                    <ComboBoxItem>Все записи</ComboBoxItem>
+                    <ComboBoxItem>По убыванию</ComboBoxItem>
+                    <ComboBoxItem>По возрастанию</ComboBoxItem>
+                </ComboBox>
+                <ComboBox Name="fieldCB" Height="24" SelectedIndex="0">
+                    <ComboBoxItem>Названия</ComboBoxItem>
+                    <ComboBoxItem>Цены</ComboBoxItem>
+                    <ComboBoxItem>Даты</ComboBoxItem>
+                </ComboBox>
             </StackPanel>
 
-            <ListView Name="gamesLV" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="1" Background="Transparent" BorderBrush="Transparent">
+            <ListView Name="gamesLV" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="1" Background="Transparent" BorderBrush="Transparent" SelectionChanged="gamesLV_SelectionChanged">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel HorizontalAlignment="Stretch" Width="auto" Orientation="Vertical" />
@@ -33,24 +43,43 @@
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Height="50" HorizontalAlignment="Stretch" Background="#16202D" Width="807 ">
+                        <StackPanel Height="80" HorizontalAlignment="Stretch" Background="#16202D" Width="807 ">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="8*"/>
+                                </Grid.ColumnDefinitions>
 
-                            <Image Width="80" Grid.Column="0"/>
-                            <TextBlock Text="{Binding gameName}" Style="{StaticResource textBlockForListGameName}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                            <ListView Name="tags4Game" Uid="{Binding idGame}" Loaded="tags4Game_Loaded">
-                                <ListView.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal"/>
-                                    </ItemsPanelTemplate>
-                                </ListView.ItemsPanel>
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding tags.tagName}"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                            <TextBlock Text="{Binding releaseDate, ConverterCulture=ru, StringFormat={}dd MMM. yyyy}" HorizontalAlignment="Right" Style="{StaticResource textBlockForListGameDate}" VerticalAlignment="Center"/>
-                            <TextBlock Text="{Binding gamePrice}" VerticalAlignment="Center" HorizontalAlignment="Right" Style="{StaticResource textBlockForListGamePrice}"/>
+                                <Image Grid.Column="0" Name="gameImageI" Loaded="gameImageI_Loaded" Uid="{Binding idGame}"/>
+
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock Text="{Binding gameName}" Style="{StaticResource textBlockForListGameName}" Margin="7 0 0 0" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Популярные тэги: " Foreground="#C7CCC9"  Margin="10 0 0 0"/>
+                                        <ListView Name="tags4Game" Uid="{Binding idGame}" Loaded="tags4Game_Loaded" Background="Transparent" BorderThickness="0">
+                                            <ListBox.ItemContainerStyle>
+                                                <Style TargetType="ListBoxItem">
+                                                    <Setter Property="Focusable" Value="False" />
+                                                </Style>
+                                            </ListBox.ItemContainerStyle>
+                                            <ListView.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal"/>
+                                                </ItemsPanelTemplate>
+                                            </ListView.ItemsPanel>
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding tags.tagName}"  Style="{StaticResource listViewItemsAdminPageGames}"/>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                    </StackPanel>
+                                    <TextBlock Text="{Binding releaseDate, ConverterCulture=ru, StringFormat={}dd MMM. yyyy}" HorizontalAlignment="Right" Style="{StaticResource textBlockForListGameDate}" VerticalAlignment="Center"/>
+                                    <TextBlock Name="gamePriceTB" Loaded="gamePriceTB_Loaded" Uid="{Binding idGame}" VerticalAlignment="Center" HorizontalAlignment="Right" Style="{StaticResource textBlockForListGamePrice}"/>
+                                </StackPanel>
+
+                            </Grid>
+
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -60,13 +89,31 @@
 
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="2.5*"/>
+                <RowDefinition Height="1.5*"/>
                 <RowDefinition Height="2.5*"/>
                 <RowDefinition Height="2.5*"/>
                 <RowDefinition Height="2.5*"/>
             </Grid.RowDefinitions>
 
-            <Label Grid.Row="0" Content="Сортировка по цене" Foreground="#4C6C8C"/>
+            <StackPanel Grid.Row="0">
+                <Label Content="Сортировка по цене" Foreground="#4C6C8C"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Мин. цена" Grid.Row="0" Foreground="#4C6C8C" Grid.Column="0" FontSize="10" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                    <TextBlock Text="Макс. цена" Grid.Row="0" Grid.Column="1" Foreground="#4C6C8C" FontSize="10" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                    <TextBox Grid.Row="1" Grid.Column="0" Name="minPriceTB" Style="{StaticResource textBoxes}" Margin="10 0 10 0"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" Name="maxPriceTB" Style="{StaticResource textBoxes}" Margin="10 0 10 0"/>
+
+                </Grid>
+            </StackPanel>
 
             <Grid Grid.Row="1" Background="#343E4C" Margin="3">
                 <Grid.RowDefinitions>
@@ -102,6 +149,6 @@
             </Grid>
 
         </Grid>
-        
+
     </Grid>
 </Page>

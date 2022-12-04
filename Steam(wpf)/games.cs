@@ -33,6 +33,7 @@ namespace Steam_wpf_
         public int gamePrice { get; set; }
         public bool isDiscounted { get; set; }
         public Nullable<int> priceWithDiscount { get; set; }
+        public byte[] gameImage { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<developersForGame> developersForGame { get; set; }

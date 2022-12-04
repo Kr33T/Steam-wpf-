@@ -39,6 +39,7 @@
             <Label Style="{StaticResource frameChanger}"  Content="МАГАЗИН" Name="storeL" MouseDown="storeL_MouseDown" MouseEnter="Label_MouseEnter" MouseLeave="storeL_MouseLeave" />
             <Label Style="{StaticResource frameChanger}" Content="БИБЛИОТЕКА" Name="libraryL" MouseDown="libraryL_MouseDown"  MouseEnter="Label_MouseEnter" MouseLeave="storeL_MouseLeave" />
             <Label Style="{StaticResource frameChanger}" Name="profileL" MouseDown="profileL_MouseDown"  MouseEnter="Label_MouseEnter" MouseLeave="storeL_MouseLeave"/>
+            <TextBlock Name="sizeOfFrame"/>
         </StackPanel>
 
         <Frame Grid.Row="2" Name="mainFrame" NavigationUIVisibility="Hidden" Margin="5">
