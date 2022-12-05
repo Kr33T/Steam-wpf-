@@ -73,16 +73,27 @@ namespace Steam_wpf_.page
 
         private void saveChangesBTN_Click(object sender, RoutedEventArgs e)
         {
-            user.nickname = user.nickname;
-            user.userSurname = checkString(userSurnameTB.Text);
-            user.userName = checkString(userNameTB.Text);
-            user.userMidname = checkString(userMidnameTB.Text);
-            user.userLogin = userLoginTB.Text;
-            user.userImage = Barray;
+            List<users> usersList = DBHelper.sE.users.Where(x => x.userLogin.Equals(userLoginTB.Text)).ToList();
 
-            DBHelper.sE.SaveChanges();
-            MessageBox.Show("Данные изменены");
-            frameClass.mainFrame.Navigate(new profilePage());
+            if (usersList.Count == 0)
+            {
+                user.userLogin = userLoginTB.Text;
+                user.nickname = user.nickname;
+                user.userSurname = checkString(userSurnameTB.Text);
+                user.userName = checkString(userNameTB.Text);
+                user.userMidname = checkString(userMidnameTB.Text);
+
+                user.userImage = Barray;
+
+                DBHelper.sE.SaveChanges();
+                MessageBox.Show("Данные изменены");
+                frameClass.mainFrame.Navigate(new profilePage());
+            }
+            else
+            {
+                MessageBox.Show("Аккаунт с таким логином уже зарегистрирован.");
+            }
+            
         }
 
         private void cancelBTN_Click(object sender, RoutedEventArgs e)

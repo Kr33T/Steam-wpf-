@@ -1,0 +1,34 @@
+﻿<Window x:Class="Steam_wpf_.widnow.userGaleryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Steam_wpf_.widnow"
+        mc:Ignorable="d"
+        Title="userGaleryWindow" Height="580" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
+    <Grid Background="#1B2838">
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <Button Style="{StaticResource buttons}" Content="Выбрать" Width="100" Margin="10 0 0 0" Name="selectImageBTN" Click="selectImageBTN_Click"/>
+                <Button Style="{StaticResource buttons}" Content="Удалить" Width="100" Margin="10 0 0 0" Name="deleteImageBTN" Click="deleteImageBTN_Click"/>
+                <Button Style="{StaticResource buttons}" Content="Добавить" Width="100" Margin="10 0 0 0" Name="addNewImageBTN" Click="addNewImageBTN_Click"/>
+                <Button Style="{StaticResource buttons}" Content="Отмена" Width="100" Margin="10 0 0 0" Name="cancelBTN" Click="cancelBTN_Click"/>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Выберите фото" Foreground="White" Style="{StaticResource textBlocks}" Margin="10"/>
+                <ListView Name="imagesLV" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Height="500" Background="Transparent" BorderThickness="0">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel HorizontalAlignment="Center"></WrapPanel>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Image Width="150" Height="150" Name="ImageI" Uid="{Binding idGaleryPhoto}" Loaded="ImageI_Loaded"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

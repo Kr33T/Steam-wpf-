@@ -38,6 +38,7 @@ namespace Steam_wpf_
         public virtual DbSet<roles> roles { get; set; }
         public virtual DbSet<tags> tags { get; set; }
         public virtual DbSet<tagsForGame> tagsForGame { get; set; }
+        public virtual DbSet<userGalery> userGalery { get; set; }
         public virtual DbSet<userLibrary> userLibrary { get; set; }
         public virtual DbSet<users> users { get; set; }
     }

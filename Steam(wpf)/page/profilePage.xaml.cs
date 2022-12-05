@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Drawing;
+using Steam_wpf_.widnow;
 
 namespace Steam_wpf_
 {
@@ -102,6 +103,36 @@ namespace Steam_wpf_
                 path = path.Replace("bin\\Debug", "Resources\\empty.png");
                 (sender as System.Windows.Controls.Image).Source = BitmapFrame.Create(new Uri(path));
             }
+        }
+
+        private void openGalery_Click(object sender, RoutedEventArgs e)
+        {
+            userGaleryWindow window = new userGaleryWindow();
+            window.Show();
+
+            window.Closing += (obj, args) =>
+            {
+                if (user.userImage != null)
+                {
+                    byte[] Barr = user.userImage;
+                    BitmapImage Bim = new BitmapImage();
+                    using (MemoryStream MS = new MemoryStream(Barr))
+                    {
+                        Bim.BeginInit();
+                        Bim.StreamSource = MS;
+                        Bim.CacheOption = BitmapCacheOption.OnLoad;
+                        Bim.EndInit();
+                    }
+                    userImageI.Source = Bim;
+                    userImageI.Stretch = Stretch.Uniform;
+                }
+                else
+                {
+                    string path = Environment.CurrentDirectory;
+                    path = path.Replace("bin\\Debug", "Resources\\empty.jpg");
+                    userImageI.Source = BitmapFrame.Create(new Uri(path));
+                }
+            };
         }
     }
 }

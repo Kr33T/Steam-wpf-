@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -115,9 +116,18 @@ namespace Steam_wpf_.page
             }
             if (game.gameImage != null)
             {
-                string image = Environment.CurrentDirectory;
-                image = image.Replace("bin\\Debug", "Resources\\" + game.gameImage);
-                gameImageI.Source = BitmapFrame.Create(new Uri(image));
+                byte[] Barr = game.gameImage;  // считываем изображение из базы (считываем байтовый массив двоичных данных)
+                BitmapImage Bim = new BitmapImage();  // создаем объект для загрузки изображения
+                using (MemoryStream MS = new MemoryStream(Barr))  // для считывания байтового потока
+                {
+                    Bim.BeginInit();  // начинаем считывание
+                    Bim.StreamSource = MS;  // задаем источник потока
+                    Bim.CacheOption = BitmapCacheOption.OnLoad;  // переводим изображение
+                    Bim.EndInit();  // заканчиваем считывание
+                }
+                gameImageI.Source = Bim;  // показываем картинку на экране (UserPhotoImage – имя картиник в разметке)
+                gameImageI.Stretch = Stretch.Uniform;
+
             }
         }
 

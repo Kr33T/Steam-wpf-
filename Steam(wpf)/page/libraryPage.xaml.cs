@@ -64,5 +64,15 @@ namespace Steam_wpf_
                 (sender as Image).Source = BitmapFrame.Create(new Uri(path));
             }
         }
+
+        private void searchTB_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            List<userLibrary> gamesL = DBHelper.sE.userLibrary.Where(x => x.idUser == MainWindow.userId).ToList();
+            if (!String.IsNullOrEmpty(searchTB.Text))
+            {
+                gamesL = gamesL.Where(x=>x.games.gameName.ToLower().ToString().Equals(searchTB.Text.ToLower())).ToList();
+            }
+            gamesLB.ItemsSource = gamesL;
+        }
     }
 }

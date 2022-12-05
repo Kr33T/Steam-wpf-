@@ -16,7 +16,7 @@
 
         <Grid Grid.Column="0">
             <StackPanel Background="#252930">
-                <TextBox Style="{StaticResource textBoxes}" Margin="3 3 3 0"/>
+                <TextBox Style="{StaticResource textBoxes}" Margin="3 3 3 0" Name="searchTB" TextChanged="searchTB_TextChanged"/>
                 <ScrollViewer VerticalScrollBarVisibility="Hidden">
                     <ListBox Name="gamesLB" Background="Transparent" BorderThickness="0" SelectionChanged="gamesLB_SelectionChanged">
                         <ListBox.ItemsPanel>

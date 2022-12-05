@@ -115,7 +115,15 @@ namespace Steam_wpf_
 
             games game = DBHelper.sE.games.FirstOrDefault(x => x.idGame == index);
 
-            (sender as TextBlock).Text = game.gamePrice.ToString() + " руб.";
+            if(game.isDiscounted)
+            {
+                (sender as TextBlock).Text = game.priceWithDiscount.ToString() + " руб.";
+                (sender as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(179, 228, 24));
+            }
+            else
+            {
+                (sender as TextBlock).Text = game.gamePrice.ToString() + " руб.";
+            }
         }
 
         private void searchBTN_Click(object sender, RoutedEventArgs e)
@@ -175,7 +183,12 @@ namespace Steam_wpf_
                 {
                     games = games.Where(x => x.gamePrice >= Convert.ToInt32(minPriceTB.Text) && x.gamePrice <= Convert.ToInt32(maxPriceTB.Text)).ToList();
                 }
+                if((bool)withDiscountCB.IsChecked)
+                {
+                    games = games.Where(x => x.isDiscounted).ToList();
+                }
 
+                searchResultTB.Text = "По вашему запросу было найдено " + games.Count + " записей";
                 gamesLV.ItemsSource = games;
                 gamesLV.SelectedValuePath = "idGame";
             }

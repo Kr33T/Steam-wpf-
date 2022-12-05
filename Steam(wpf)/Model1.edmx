@@ -112,6 +112,14 @@
           <Property Name="idTag" Type="int" Nullable="false" />
           <Property Name="idGame" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="userGalery">
+          <Key>
+            <PropertyRef Name="idGaleryPhoto" />
+          </Key>
+          <Property Name="idGaleryPhoto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idUser" Type="int" Nullable="false" />
+          <Property Name="userImage" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="userLibrary">
           <Key>
             <PropertyRef Name="idLibraryGame" />
@@ -280,6 +288,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__userGaler__idUse__0B5CAFEA">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="userGalery" Type="Self.userGalery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="userGalery">
+              <PropertyRef Name="idUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__userLibra__idGam__58D1301D">
           <End Role="games" Type="Self.games" Multiplicity="1" />
           <End Role="userLibrary" Type="Self.userLibrary" Multiplicity="*" />
@@ -342,6 +362,7 @@
           <EntitySet Name="roles" EntityType="Self.roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tags" EntityType="Self.tags" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tagsForGame" EntityType="Self.tagsForGame" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="userGalery" EntityType="Self.userGalery" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="userLibrary" EntityType="Self.userLibrary" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__developer__idDev__4E53A1AA" Association="Self.FK__developer__idDev__4E53A1AA">
@@ -392,6 +413,10 @@
             <End Role="tags" EntitySet="tags" />
             <End Role="tagsForGame" EntitySet="tagsForGame" />
           </AssociationSet>
+          <AssociationSet Name="FK__userGaler__idUse__0B5CAFEA" Association="Self.FK__userGaler__idUse__0B5CAFEA">
+            <End Role="users" EntitySet="users" />
+            <End Role="userGalery" EntitySet="userGalery" />
+          </AssociationSet>
           <AssociationSet Name="FK__userLibra__idGam__58D1301D" Association="Self.FK__userLibra__idGam__58D1301D">
             <End Role="games" EntitySet="games" />
             <End Role="userLibrary" EntitySet="userLibrary" />
@@ -427,6 +452,7 @@
           <EntitySet Name="roles" EntityType="Model.roles" />
           <EntitySet Name="tags" EntityType="Model.tags" />
           <EntitySet Name="tagsForGame" EntityType="Model.tagsForGame" />
+          <EntitySet Name="userGalery" EntityType="Model.userGalery" />
           <EntitySet Name="userLibrary" EntityType="Model.userLibrary" />
           <EntitySet Name="users" EntityType="Model.users" />
           <AssociationSet Name="FK__developer__idDev__4E53A1AA" Association="Model.FK__developer__idDev__4E53A1AA">
@@ -488,6 +514,10 @@
           <AssociationSet Name="FK__tagsForGa__idTag__3C34F16F" Association="Model.FK__tagsForGa__idTag__3C34F16F">
             <End Role="tags" EntitySet="tags" />
             <End Role="tagsForGame" EntitySet="tagsForGame" />
+          </AssociationSet>
+          <AssociationSet Name="FK__userGaler__idUse__0B5CAFEA" Association="Model.FK__userGaler__idUse__0B5CAFEA">
+            <End Role="users" EntitySet="users" />
+            <End Role="userGalery" EntitySet="userGalery" />
           </AssociationSet>
           <AssociationSet Name="FK__userLibra__idUse__57DD0BE4" Association="Model.FK__userLibra__idUse__57DD0BE4">
             <End Role="users" EntitySet="users" />
@@ -628,6 +658,15 @@
           <NavigationProperty Name="games" Relationship="Model.FK__tagsForGa__idGam__3D2915A8" FromRole="tagsForGame" ToRole="games" />
           <NavigationProperty Name="tags" Relationship="Model.FK__tagsForGa__idTag__3C34F16F" FromRole="tagsForGame" ToRole="tags" />
         </EntityType>
+        <EntityType Name="userGalery">
+          <Key>
+            <PropertyRef Name="idGaleryPhoto" />
+          </Key>
+          <Property Name="idGaleryPhoto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idUser" Type="Int32" Nullable="false" />
+          <Property Name="userImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="users" Relationship="Model.FK__userGaler__idUse__0B5CAFEA" FromRole="userGalery" ToRole="users" />
+        </EntityType>
         <EntityType Name="userLibrary">
           <Key>
             <PropertyRef Name="idLibraryGame" />
@@ -655,6 +694,7 @@
           <Property Name="userImage" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="reviews" Relationship="Model.FK__reviews__idUser__74794A92" FromRole="users" ToRole="reviews" />
           <NavigationProperty Name="roles" Relationship="Model.FK__users__roleId__5CA1C101" FromRole="users" ToRole="roles" />
+          <NavigationProperty Name="userGalery" Relationship="Model.FK__userGaler__idUse__0B5CAFEA" FromRole="users" ToRole="userGalery" />
           <NavigationProperty Name="userLibrary" Relationship="Model.FK__userLibra__idUse__57DD0BE4" FromRole="users" ToRole="userLibrary" />
         </EntityType>
         <Association Name="FK__developer__idDev__4E53A1AA">
@@ -837,6 +877,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__userGaler__idUse__0B5CAFEA">
+          <End Type="Model.users" Role="users" Multiplicity="1" />
+          <End Type="Model.userGalery" Role="userGalery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="userGalery">
+              <PropertyRef Name="idUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__userLibra__idUse__57DD0BE4">
           <End Type="Model.users" Role="users" Multiplicity="1" />
           <End Type="Model.userLibrary" Role="userLibrary" Multiplicity="*" />
@@ -972,6 +1024,15 @@
                 <ScalarProperty Name="idGame" ColumnName="idGame" />
                 <ScalarProperty Name="idTag" ColumnName="idTag" />
                 <ScalarProperty Name="idtagsForGame" ColumnName="idtagsForGame" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userGalery">
+            <EntityTypeMapping TypeName="Model.userGalery">
+              <MappingFragment StoreEntitySet="userGalery">
+                <ScalarProperty Name="userImage" ColumnName="userImage" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+                <ScalarProperty Name="idGaleryPhoto" ColumnName="idGaleryPhoto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
