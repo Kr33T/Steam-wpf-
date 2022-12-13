@@ -114,8 +114,8 @@
                         <StackPanel>
                             <TextBlock Text="Рекомендуете ли вы эту игру?"/>
                             <StackPanel Orientation="Horizontal" Margin="10 0 0 0">
-                                <RadioButton Content="Да" Margin="10 0 5 0"/>
-                                <RadioButton Content="Нет" Margin="5 0 0 0"/>
+                                <RadioButton Content="Да" Margin="10 0 5 0" Name="yesRBTN" Checked="RadioButton_Checked"/>
+                                <RadioButton Content="Нет" Margin="5 0 0 0" Name="noRBTN" Checked="noRBTN_Checked"/>
                             </StackPanel>
                         </StackPanel>
                         <Button Name="publishBTN" Click="publishBTN_Click" Margin="600 10 10 10" Content="Опубликовать" HorizontalAlignment="Right" Background="#ACCFE3" Foreground="#2B5066" BorderThickness="0" />

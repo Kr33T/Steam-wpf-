@@ -65,6 +65,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="class\classForPaginator.cs" />
     <Compile Include="class\DBHelper.cs" />
     <Compile Include="class\gamePresenterFrame.cs" />
     <Compile Include="developers.cs">

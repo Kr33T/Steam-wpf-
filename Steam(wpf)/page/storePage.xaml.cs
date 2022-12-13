@@ -22,10 +22,16 @@ namespace Steam_wpf_
     /// </summary>
     public partial class storePage : Page
     {
+        classForPaginator cfp = new classForPaginator();
+        List<games> gamesL = new List<games>();
+
         public storePage()
         {
             InitializeComponent();
             gamesLV.ItemsSource = DBHelper.sE.games.ToList();
+            gamesL = DBHelper.sE.games.ToList();
+            cfp.CountPage = DBHelper.sE.games.ToList().Count;
+            DataContext = cfp;
             gamesLV.SelectedValuePath = "idGame";
 
             listOfLanguages.ItemsSource = DBHelper.sE.languages.ToList();
@@ -130,15 +136,14 @@ namespace Steam_wpf_
         {
             try
             {
-                List<games> games;
 
                 if (!String.IsNullOrEmpty(searchTB.Text))
                 {
-                    games = DBHelper.sE.games.Where(x => x.gameName.ToLower().Contains(searchTB.Text.ToLower())).ToList();
+                    gamesL = DBHelper.sE.games.Where(x => x.gameName.ToLower().Contains(searchTB.Text.ToLower())).ToList();
                 }
                 else
                 {
-                    games = DBHelper.sE.games.ToList();
+                    gamesL = DBHelper.sE.games.ToList();
                 }
                 switch (orderCB.SelectedIndex)
                 {
@@ -146,13 +151,13 @@ namespace Steam_wpf_
                         switch (fieldCB.SelectedIndex)
                         {
                             case 0:
-                                games = games.OrderByDescending(x => x.gameName).ToList();
+                                gamesL = gamesL.OrderByDescending(x => x.gameName).ToList();
                                 break;
                             case 1:
-                                games = games.OrderByDescending(x => x.gamePrice).ToList();
+                                gamesL = gamesL.OrderByDescending(x => x.gamePrice).ToList();
                                 break;
                             case 2:
-                                games = games.OrderByDescending(x => x.releaseDate).ToList();
+                                gamesL = gamesL.OrderByDescending(x => x.releaseDate).ToList();
                                 break;
                         }
                         break;
@@ -160,36 +165,36 @@ namespace Steam_wpf_
                         switch (fieldCB.SelectedIndex)
                         {
                             case 0:
-                                games = games.OrderBy(x => x.gameName).ToList();
+                                gamesL = gamesL.OrderBy(x => x.gameName).ToList();
                                 break;
                             case 1:
-                                games = games.OrderBy(x => x.gamePrice).ToList();
+                                gamesL = gamesL.OrderBy(x => x.gamePrice).ToList();
                                 break;
                             case 2:
-                                games = games.OrderBy(x => x.releaseDate).ToList();
+                                gamesL = gamesL.OrderBy(x => x.releaseDate).ToList();
                                 break;
                         }
                         break;
                 }
                 if (!String.IsNullOrEmpty(minPriceTB.Text))
                 {
-                    games = games.Where(x => x.gamePrice >= Convert.ToInt32(minPriceTB.Text)).ToList();
+                    gamesL = gamesL.Where(x => x.gamePrice >= Convert.ToInt32(minPriceTB.Text)).ToList();
                 }
                 if (!String.IsNullOrEmpty(maxPriceTB.Text))
                 {
-                    games = games.Where(x => x.gamePrice <= Convert.ToInt32(maxPriceTB.Text)).ToList();
+                    gamesL = gamesL.Where(x => x.gamePrice <= Convert.ToInt32(maxPriceTB.Text)).ToList();
                 }
                 if (!String.IsNullOrEmpty(minPriceTB.Text) && !String.IsNullOrEmpty(maxPriceTB.Text))
                 {
-                    games = games.Where(x => x.gamePrice >= Convert.ToInt32(minPriceTB.Text) && x.gamePrice <= Convert.ToInt32(maxPriceTB.Text)).ToList();
+                    gamesL = gamesL.Where(x => x.gamePrice >= Convert.ToInt32(minPriceTB.Text) && x.gamePrice <= Convert.ToInt32(maxPriceTB.Text)).ToList();
                 }
                 if((bool)withDiscountCB.IsChecked)
                 {
-                    games = games.Where(x => x.isDiscounted).ToList();
+                    gamesL = gamesL.Where(x => x.isDiscounted).ToList();
                 }
 
-                searchResultTB.Text = "По вашему запросу было найдено " + games.Count + " записей";
-                gamesLV.ItemsSource = games;
+                searchResultTB.Text = "По вашему запросу было найдено " + gamesL.Count + " записей";
+                gamesLV.ItemsSource = gamesL.Skip(cfp.CurrentPage * cfp.CountPage - cfp.CountPage).Take(cfp.CountPage).ToList();
                 gamesLV.SelectedValuePath = "idGame";
             }
             catch (Exception ex)
@@ -212,6 +217,46 @@ namespace Steam_wpf_
                     fieldCB.Visibility = Visibility.Visible;
                     break;
             }
+        }
+
+        private void GoPage_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            TextBlock tb = (TextBlock)sender;
+
+            switch (tb.Uid)
+            {
+                case "prev":
+                    cfp.CurrentPage--;
+                    break;
+                case "next":
+                    cfp.CurrentPage++;
+                    break;
+                case "firstOne":
+                    cfp.CurrentPage = 1;
+                    break;
+                case "lastOne":
+                    cfp.CurrentPage = cfp.CountPages;
+                    break;
+                default:
+                    cfp.CurrentPage = Convert.ToInt32(tb.Text);
+                    break;
+            }
+            gamesLV.ItemsSource = gamesL.Skip(cfp.CurrentPage * cfp.CountPage - cfp.CountPage).Take(cfp.CountPage).ToList();
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                cfp.CountPage = Convert.ToInt32(pageCountTB.Text);
+            }
+            catch
+            {
+                cfp.CountPage = gamesL.Count;
+            }
+            cfp.Countlist = gamesL.Count;
+            gamesLV.ItemsSource = gamesL.Skip(0).Take(cfp.CountPage).ToList();
+            cfp.CurrentPage = 1;
         }
     }
 }

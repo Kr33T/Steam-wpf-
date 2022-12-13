@@ -106,5 +106,11 @@
             <Setter Property="Height" Value="40"/>
             <Setter Property="Foreground" Value="White"/>
         </Style>
+
+        <Style x:Key="paginatorBtns" TargetType="TextBlock">
+            <Setter Property="Margin" Value="3 0 3 0"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Foreground" Value="#D2D2D2"/>
+        </Style>
     </Application.Resources>
 </Application>

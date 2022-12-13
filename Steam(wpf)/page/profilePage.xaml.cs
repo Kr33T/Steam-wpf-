@@ -109,7 +109,7 @@ namespace Steam_wpf_
         {
             userGaleryWindow window = new userGaleryWindow();
             window.Show();
-
+                
             window.Closing += (obj, args) =>
             {
                 if (user.userImage != null)

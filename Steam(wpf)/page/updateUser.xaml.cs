@@ -178,13 +178,21 @@ namespace Steam_wpf_.page
 
         private void userImageBTN_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog OFD = new OpenFileDialog();
-            OFD.ShowDialog();
-            path = OFD.FileName;
-            System.Drawing.Image SDI = System.Drawing.Image.FromFile(path);
-            ImageConverter ISC = new ImageConverter();
-            Barray = (byte[])ISC.ConvertTo(SDI, typeof(byte[]));
-            userImageI.Source = BitmapFrame.Create(new Uri(path));
+            try
+            {
+                OpenFileDialog OFD = new OpenFileDialog();
+                OFD.ShowDialog();
+                path = OFD.FileName;
+                System.Drawing.Image SDI = System.Drawing.Image.FromFile(path);
+                ImageConverter ISC = new ImageConverter();
+                Barray = (byte[])ISC.ConvertTo(SDI, typeof(byte[]));
+                userImageI.Source = BitmapFrame.Create(new Uri(path));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Что-то пошло не так\n" + ex.Message);
+            }
+
         }
     }
 }

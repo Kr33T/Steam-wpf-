@@ -78,22 +78,29 @@ namespace Steam_wpf_.widnow
 
         private void addNewImageBTN_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog OFD = new OpenFileDialog();
-            OFD.ShowDialog();
-            string Path = OFD.FileName;
-            System.Drawing.Image SDI = System.Drawing.Image.FromFile(Path);
-            ImageConverter ISC = new ImageConverter();
-            byte[] Barray = (byte[])ISC.ConvertTo(SDI, typeof(byte[]));
-            userGalery galery = new userGalery()
+            try
             {
-                idUser = user.idUser,
-                userImage = Barray
-            };
-            DBHelper.sE.userGalery.Add(galery);
-            DBHelper.sE.SaveChanges();
+                OpenFileDialog OFD = new OpenFileDialog();
+                OFD.ShowDialog();
+                string Path = OFD.FileName;
+                System.Drawing.Image SDI = System.Drawing.Image.FromFile(Path);
+                ImageConverter ISC = new ImageConverter();
+                byte[] Barray = (byte[])ISC.ConvertTo(SDI, typeof(byte[]));
+                userGalery galery = new userGalery()
+                {
+                    idUser = user.idUser,
+                    userImage = Barray
+                };
+                DBHelper.sE.userGalery.Add(galery);
+                DBHelper.sE.SaveChanges();
 
-            imagesLV.ItemsSource = DBHelper.sE.userGalery.Where(x => x.idUser == user.idUser).ToList();
-            MessageBox.Show("Фото добавлено");
+                imagesLV.ItemsSource = DBHelper.sE.userGalery.Where(x => x.idUser == user.idUser).ToList();
+                MessageBox.Show("Фото добавлено");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Что-то пошло не так\n" + ex.Message);
+            }
         }
 
         private void cancelBTN_Click(object sender, RoutedEventArgs e)

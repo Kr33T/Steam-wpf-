@@ -94,7 +94,7 @@ namespace Steam_wpf_.page
 
             headerReviewTB.Text = "Написать обзор " + game.gameName;
             underHeaderTB.Text = "Пожалуйста, опишите, что вам понравилось или не понравилось в этой игре, и порекомендовали бы вы её другим.\nБудьте вежливы и придерживайтесь правил и рекомендаций.";
-            reviewLV.ItemsSource = DBHelper.sE.reviews.ToList();
+            reviewLV.ItemsSource = DBHelper.sE.reviews.Where(x=>x.idGame == game.idGame).ToList();
             reviewLV.SelectedValuePath = "idReview";
 
             users user = DBHelper.sE.users.FirstOrDefault(x => x.idUser == MainWindow.userId);
@@ -131,10 +131,33 @@ namespace Steam_wpf_.page
             }
         }
 
+        bool rate = true, flag = false;
+
         private void publishBTN_Click(object sender, RoutedEventArgs e)
         {
-            string review = new TextRange(reviewTextRTB.Document.ContentStart, reviewTextRTB.Document.ContentEnd).Text;
-            
+            if(flag)
+            {
+                string review = new TextRange(reviewTextRTB.Document.ContentStart, reviewTextRTB.Document.ContentEnd).Text;
+                users user = DBHelper.sE.users.FirstOrDefault(x => x.idUser == MainWindow.userId);
+                reviews newReview = new reviews()
+                {
+                    idGame = game.idGame,
+                    reviewDesccription = review,
+                    rating = rate,
+                    idUser = user.idUser,
+                    publicationDate = DateTime.Now
+                };
+                DBHelper.sE.reviews.Add(newReview);
+                DBHelper.sE.SaveChanges();
+                yesRBTN.IsChecked = false;
+                noRBTN.IsChecked = false;
+                reviewLV.ItemsSource = DBHelper.sE.reviews.Where(x => x.idGame == game.idGame).ToList();
+                reviewLV.SelectedValuePath = "idReview";
+            }
+            else
+            {
+                MessageBox.Show("Вы не выбрали рекомендуете ли вы эту игру, или нет");
+            }
         }
 
         private void reviewLV_Loaded(object sender, RoutedEventArgs e)
@@ -157,6 +180,18 @@ namespace Steam_wpf_.page
             addToLibBTN.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 0));
             addToLibBTN.IsEnabled = false;
             MessageBox.Show("Игра в библиотеке");
+        }
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            rate = true;
+            flag = true;
+        }
+
+        private void noRBTN_Checked(object sender, RoutedEventArgs e)
+        {
+            rate = false;
+            flag = true;
         }
     }
 }
