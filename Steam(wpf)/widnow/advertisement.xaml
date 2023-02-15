@@ -1,0 +1,46 @@
+﻿<Window x:Class="Steam_wpf_.advertisement"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Steam_wpf_"
+        mc:Ignorable="d"
+        Title="advertisement" Height="600" Width="500" Background="#25282E">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="0.7*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+
+            <Image Grid.Row="0" Name="previewImg" Panel.ZIndex="1" Source="../resources/atomic_heart.jpg"/>
+
+            <Image Grid.Row="0" Name="atomic_heartIMG" Panel.ZIndex="2" Margin="183 0 0 39" Width="204" Height="204" Source="../resources/atomic_heart.png"/>
+
+            <Grid Grid.Row="1">
+                <Button Name="moreInfo" Click="moreInfo_Click" Content="Узнать больше" Padding="35, 0, 0, 0" Width="180" Height="40" HorizontalContentAlignment="Left" FontSize="16" Background="#56627B" Foreground="White"/>
+            </Grid>
+            
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3 0 0 0">
+                <TextBlock Text="ⓒ 2023 Valve Corporation and Mundfish." Foreground="#8C8C8C" FontSize="8"/>
+                <TextBlock Text="All trademarks are property of their respective owners in the US and other countries" Foreground="#8C8C8C" FontSize="8"/>
+            </StackPanel>
+
+            <Button HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 4 0" Content="Закрыть" Name="closeAdWindowBTN" Click="closeAdWindowBTN_Click" Grid.Column="1" Width="60" Height="24" Style="{StaticResource buttons}"/>
+
+        </Grid>
+    </Grid>
+</Window>

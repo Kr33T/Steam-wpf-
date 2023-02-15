@@ -58,6 +58,9 @@ namespace Steam_wpf_
             {
                 adminItem.Visibility = Visibility.Collapsed;
             }
+
+            advertisement window = new advertisement();
+            window.Show();
         }
 
         private void storeL_MouseDown(object sender, MouseButtonEventArgs e)

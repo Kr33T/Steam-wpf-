@@ -258,5 +258,10 @@ namespace Steam_wpf_
             gamesLV.ItemsSource = gamesL.Skip(0).Take(cfp.CountPage).ToList();
             cfp.CurrentPage = 1;
         }
+
+        private void listOfLanguages_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

@@ -140,7 +140,7 @@
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Content="Язык" Foreground="#C7CCC9"/>
                 <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="1 -1 1 1" CanContentScroll="True">
-                    <ListBox Name="listOfLanguages" SelectionMode="Multiple" Background="#1B2838" Foreground="#9FBBCB" BorderThickness="0"/>
+                    <ListBox SelectionChanged="listOfLanguages_SelectionChanged" Name="listOfLanguages" SelectionMode="Multiple" Background="#1B2838" Foreground="#9FBBCB" BorderThickness="0"/>
                 </ScrollViewer>
             </Grid>
 

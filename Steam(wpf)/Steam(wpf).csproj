@@ -65,6 +65,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="widnow\advertisement.xaml.cs">
+      <DependentUpon>advertisement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="class\classForPaginator.cs" />
     <Compile Include="class\DBHelper.cs" />
     <Compile Include="class\gamePresenterFrame.cs" />
@@ -172,6 +175,10 @@
     <Compile Include="widnow\userGaleryWindow.xaml.cs">
       <DependentUpon>userGaleryWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="widnow\advertisement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="page\gameEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -288,6 +295,8 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\atomic_heart.jpg" />
+    <Resource Include="Resources\atomic_heart.png" />
     <Resource Include="Resources\empty.jpg" />
     <Resource Include="Resources\apb_reloaded.jpg" />
     <Resource Include="Resources\grand_theft_auto_v.jpg" />
